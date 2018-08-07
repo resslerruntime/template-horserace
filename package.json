@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@flourish/controls": "^0.4.1",
+    "@flourish/custom-colors": "^0.9.1",
     "@flourish/footer": "^0.1.6",
     "d3-array": "^1.2.0",
     "d3-axis": "^1.0.8",

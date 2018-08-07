@@ -5,8 +5,7 @@ var state = {
 	margin_left: 10,
 
 	bg_color: "#FFFFFF",
-	palette: "flourish_default_1",
-	custom_colors: "",
+	color: {},
 
 	start_circle_r: 5,
 	end_circle_r: 20,

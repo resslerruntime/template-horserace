@@ -333,43 +333,8 @@ settings:
   - property: bg_color
     name: Background colour
     type: color
-  - property: palette
-    name: Colour scheme
-    description: >-
-      Select a color scheme, or fill in a comma separated list of color values
-      (eg. '#855C75,#D9AF6B,#AF6458')
-    type: string
-    width: half
-    choices_other: true
-    choices:
-      - - Flourish categories A
-        - flourish_default_1
-      - - Flourish categories B
-        - flourish_default_2
-      - - Pastel light
-        - carto_pastel
-      - - Pastel dark
-        - carto_antique
-      - - Rainbow
-        - carto_rainbow
-      - - Category 10
-        - schemeCategory10
-      - - Category 20
-        - schemeCategory20
-      - - Category 20b
-        - schemeCategory20b
-      - - Category 20c
-        - schemeCategory20c
-      - - Accent
-        - schemeAccent
-      - - Dark 2
-        - schemeDark2
-      - - Paired
-        - schemePaired
-      - - Pastel 1
-        - schemePastel1
-      - - Pastel 2
-        - schemePastel2
+  - property: color
+    import: "@flourish/custom-colors"
 
   - Animation
   - property: stage_duration

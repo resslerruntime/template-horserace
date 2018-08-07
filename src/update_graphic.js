@@ -45,7 +45,9 @@ function updateLines(horses, duration) {
 	lines_update = lines.merge(lines_enter);
 	lines_update
 		.attr("opacity", horseOpacity)
-		.attr("stroke", color);
+		.attr("stroke", function(d) {
+			return color.find(d.name);
+		});
 	lines_update
 		.select(".line")
 		.transition().duration(duration)
@@ -82,7 +84,9 @@ function updateStartCircles(horses, duration) {
 		.attr("cy", function(d) { return y(d.start_circle.value); })
 		.attr("cx", function(d) { return x(d.start_circle.i); })
 		.attr("r", state.start_circle_r)
-		.attr("fill", color);
+		.attr("fill", function(d) {
+			return color.find(d.name);
+		});
 	start_circles.exit().remove();
 }
 
@@ -211,7 +215,9 @@ function updateLabels(horses, duration) {
 	labels_enter.selectAll(".name-fg, .name-bg").append("tspan").attr("class", "name-label");
 	labels_update = labels.merge(labels_enter);
 	labels_update
-		.attr("fill", color)
+		.attr("fill", function(d) {
+			return color.find(d.name);
+		})
 		.classed("tied", false)
 		.each(function(d) {
 			var is_selected = false;
@@ -223,7 +229,9 @@ function updateLabels(horses, duration) {
 
 	labels_update.select(".end-circle-container").attr("transform", null);
 	labels_update.select(".end.circle").attr("r", end_circle_r)
-		.attr("fill", color)
+		.attr("fill", function(d) {
+			return color.find(d.name);
+		})
 		.attr("opacity", horseOpacity)
 		.attr("stroke-width", end_circle_stroke)
 		.attr("stroke", state.end_circle_stroke_bg ? state.bg_color : color);
