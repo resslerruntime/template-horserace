@@ -16,19 +16,39 @@ function updateXAxis(x) {
 	select(".x.axis").call(xAxis)
 		.selectAll(".tick")
 		.selectAll("text")
-		.style("text-anchor", "start")
-		.attr("dx", "2.3em")
-		.attr("dy", "-0.9em")
-		.attr("transform", "rotate(-45)");
+		.style("text-anchor", state.x_axis_rotate_label == "horizontal" ? "middle" : "start")
+		.attr("dx", state.x_axis_rotate_label == "horizontal" ? 0 : "2.3em")
+		.attr("y", state.x_axis_rotate_label == "horizontal" ? -30 : -9)
+		.attr("dy", function() {
+			if (state.x_axis_rotate_label == "tilted") return "-0.9em";
+			else if (state.x_axis_rotate_label == "horizontal") "-6em";
+			else return "1em";
+		})
+		.attr("transform", function() {
+			if (state.x_axis_rotate_label == "tilted") return "rotate(-45)";
+			else if (state.x_axis_rotate_label == "vertical") return "rotate(-90)";
+			else return "rotate(0)";
+		})
+		.style("font-size", state.x_axis_label_size + "px")
+		.style("fill", state.x_axis_label_colors);
 
 	if (selectAll(".x.axis .tick").size() > max_ticks) {
 		xAxis.ticks(max_ticks);
 		select(".x.axis").call(xAxis)
 			.selectAll("text")
-			.style("text-anchor", "start")
-			.attr("dx", "2.3em")
-			.attr("dy", "-0.9em")
-			.attr("transform", "rotate(-45)");
+			.style("text-anchor", state.x_axis_rotate_label == "horizontal" ? "middle" : "start")
+			.attr("dx", state.x_axis_rotate_label == "horizontal" ? 0 : "2.3em")
+			.attr("y", state.x_axis_rotate_label == "horizontal" ? -30 : -9)
+			.attr("dy", function() {
+				if (state.x_axis_rotate_label == "tilted") return "-0.9em";
+				else if (state.x_axis_rotate_label == "horizontal") "-6em";
+				else return "1em";
+			})
+			.attr("transform", function() {
+				if (state.x_axis_rotate_label == "tilted") return "rotate(-45)";
+				else if (state.x_axis_rotate_label == "vertical") return "rotate(-90)";
+				else return "rotate(0)";
+			});
 	}
 }
 
@@ -43,6 +63,9 @@ function updateYAxis(y, w, duration) {
 	}
 
 	select(".y.axis").transition().duration(duration).call(yAxis);
+	selectAll(".y.axis text")
+		.style("font-size", state.y_axis_label_size + "px")
+		.style("fill", state.y_axis_label_colors);
 
 	if (state.value_type == "scores" && state.y_axis_rounding) {
 		if (selectAll(".y.axis .tick").size() > y_max_score - y_min_score) {

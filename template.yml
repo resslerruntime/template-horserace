@@ -375,22 +375,39 @@ settings:
     step: 10
     width: quarter
   - Y axis
+  - property: y_axis_label_colors
+    name: Label colour
+    type: color
+  - property: y_axis_label_size
+    name: Font-size
+    type: number
   - property: y_axis_min
     name: Min score
     type: number
     optional: true
+    new_section: true
+    show_if:
+      value_type: scores
   - property: y_axis_max
     name: Max score
     type: number
     optional: true
+    show_if:
+      value_type: scores
   - property: y_axis_min_rank
     name: Min rank
     type: number
+    new_section: true
     optional: true
+    show_if:
+      value_type: ranks
   - property: y_axis_max_rank
     name: Max rank
     type: number
     optional: true
+    show_if:
+      value_type: ranks
+
   - property: y_axis_rounding
     name: Round y axis
     new_section: true
@@ -403,6 +420,25 @@ settings:
     name: Number suffix
     type: string
     width: half
+  - X axis
+  - property: x_axis_label_colors
+    name: Label colour
+    type: color
+  - property: x_axis_label_size
+    name: Font-size
+    type: number
+  - property: rotate_label
+    name: Label rotation
+    type: string
+    style: buttons
+    width: full
+    choices:
+      - - Tilted
+        - tilted
+      - - Horizontal
+        - horizontal
+      - - Vertical
+        - vertical
 data:
   - Data
   - name: Name column
