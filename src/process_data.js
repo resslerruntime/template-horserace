@@ -1,9 +1,14 @@
 import { ascending, descending } from "d3-array";
+import initLocalization from "@flourish/number-localization";
 
 import data from "./data";
 import state from "./state";
 
+var localization = initLocalization(state.localization);
+var parser;
+
 function getProcessedData() {
+	parser = localization.getParser();
 	var timeslices = [], max_rank = 0;
 
 	data.horserace.forEach(function(d, i) { d.unfiltered_index = i; });
@@ -18,8 +23,8 @@ function getProcessedData() {
 		// Pull out the names and raw scores
 		filtered_horses.forEach(function(horse, horse_index) {
 			if (horse.stages[stage_index] === undefined) return;
-			var stage = horse.stages[stage_index].replace(/[\s,]/g, ""),
-			    score = stage == "" || isNaN(+stage) ? null : +stage;
+			var stage = horse.stages[stage_index],
+			    score = stage == "" || isNaN(parser(stage)) ? null : parser(stage);
 			horse.index = horse_index;
 			timeslice.push({
 				name: horse.name,
@@ -92,4 +97,4 @@ function getProcessedData() {
 	return horses;
 }
 
-export { getProcessedData };
+export { getProcessedData, localization, parser };

@@ -2,6 +2,7 @@ import { select } from "d3-selection";
 import { scaleLinear } from "d3-scale";
 import { min, max } from "d3-array";
 import { getFooterHeight } from "@flourish/footer";
+import { parser } from "./process_data";
 
 import state from "./state";
 import data from "./data";
@@ -33,8 +34,8 @@ function updateSizesAndScales(current_position, max_rank) {
 	var y_domain;
 	if (state.value_type == "ranks") y_domain = [state.y_axis_max_rank || max_rank, state.y_axis_min_rank || 1];
 	else {
-		y_max_score = max(data.horserace, function(d) { return max(d.stages, function(v) { return +v; }); }),
-		y_min_score = min(data.horserace, function(d) { return min(d.stages, function(v) { return +v; }); });
+		y_max_score = max(data.horserace, function(d) { return max(d.stages, function(v) { return parser(v); }); }),
+		y_min_score = min(data.horserace, function(d) { return min(d.stages, function(v) { return parser(v); }); });
 
 		if (state.y_axis_min !== "" && state.y_axis_min !== null) y_min_score = state.y_axis_min;
 		if (state.y_axis_max !== "" && state.y_axis_max !== null) y_max_score = state.y_axis_max;

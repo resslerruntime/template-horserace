@@ -3,6 +3,7 @@ import { select, selectAll, event } from "d3-selection";
 import { ascending } from "d3-array";
 import * as shape from "d3-shape";
 import { updateFooter } from "@flourish/footer";
+import initFormatter from "@flourish/number-formatter";
 
 import state from "./state";
 import data from "./data";
@@ -10,7 +11,7 @@ import update from "./update";
 import { updateHeader } from "./lib/header";
 
 import { plot, g_lines, g_labels, g_start_circles, g_checks } from "./create_dom";
-import { getProcessedData } from "./process_data";
+import { getProcessedData, localization } from "./process_data";
 import { updateSizesAndScales, w, h, x, y } from "./size";
 import { updateAxes } from "./axis";
 import { updateColors, color } from "./colors";
@@ -26,7 +27,16 @@ var line = shape.line()
 	.y(function(d) { return y(d.value); })
 	.defined(function(d) { return d.value != null; });
 
+var getLabelFormatter = initFormatter(state.label_format);
+var localeFunction;
+var labelFormat;
+
 var labels_update, lines_update;
+
+function updateNumberFormatter() {
+	localeFunction = localization.getFormatterFunction();
+	labelFormat = getLabelFormatter(localeFunction);
+}
 
 function updateLines(horses, duration) {
 	var lines = g_lines.selectAll(".line-group").data(horses, function(d) { return d.unfiltered_index; });
@@ -91,9 +101,8 @@ function updateStartCircles(horses, duration) {
 }
 
 function displayValue(d) {
-	var rounder = Math.pow(10, state.label_decimals),
-	    val = d.line[Math.floor(current_position)].value || d.line[lastValidStage(d)].value;
-	return val == "" ? "" : Math.round(val * rounder)/rounder;
+	var val = d.line[Math.floor(current_position)].value || d.line[lastValidStage(d)].value;
+	return val == "" ? "" : labelFormat(val);
 }
 
 function lastValidStage(d) {
@@ -259,7 +268,7 @@ function updateLabels(horses, duration) {
 	labels_update.selectAll(".rank-number")
 		.attr("font-size", rank_font_size)
 		.text(function(d) {
-			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " ";
+			return state.rank_outside_picture ? "" : displayValue(d) + " ";
 		});
 	labels_update.select(".name-bg .name-label")
 		.text(function(d) { return d.name; });
@@ -269,12 +278,12 @@ function updateLabels(horses, duration) {
 	labels_update.select(".name-bg .name-rank")
 		.attr("font-size", rank_font_size)
 		.text(function(d) {
-			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
+			return state.rank_outside_picture ? displayValue(d) + " " : "";
 		});
 	labels_update.select(".name-fg .name-rank")
 		.attr("font-size", rank_font_size)
 		.text(function(d) {
-			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
+			return state.rank_outside_picture ? displayValue(d) + " " : "";
 		});
 
 	labels_update.selectAll(".name-fg, .name-bg").attr("font-size", label_font_size)
@@ -412,6 +421,7 @@ function updateLineStyle() {
 
 function updateGraphic(duration) {
 	is_mobile = window.innerWidth <= 420;
+	updateNumberFormatter();
 	updateUI();
 	updateFilterControls();
 	var horses = getProcessedData();

@@ -85,12 +85,12 @@ function frame(t) {
 		.attr("transform", transformLabel)
 		.selectAll(".rank-number")
 		.text(function(d) {
-			return state.rank_outside_picture ? "" : displayValue(d) + state.rank_label_suffix + " ";
+			return state.rank_outside_picture ? "" : displayValue(d) + " ";
 		});
 
 	labels_update.selectAll(".name-rank")
 		.text(function(d) {
-			return state.rank_outside_picture ? displayValue(d) + state.rank_label_suffix + " " : "";
+			return state.rank_outside_picture ? displayValue(d) + " " : "";
 		})
 		.each(function() {
 			select(this.parentNode).attr("x", function() {

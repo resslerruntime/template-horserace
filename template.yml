@@ -35,33 +35,6 @@ settings:
         - true
       - - Higher scores lose
         - false
-  - Header
-  - property: header_title
-    name: Title
-    type: string
-  - property: header_subtitle
-    name: Subtitle
-    type: string
-  - property: header_margin
-    name: Margin
-    type: number
-    width: quarter
-  - property: header_color
-    name: Color
-    type: color
-    width: quarter
-  - property: header_align
-    name: Alignment
-    type: string
-    style: buttons
-    width: half
-    choices:
-      - - fa-align-left
-        - left
-      - - fa-align-center
-        - center
-      - - fa-align-right
-        - right
 
 
   - Interface
@@ -119,7 +92,244 @@ settings:
       data.horserace.filter: true
       filter_include_all: true
 
+  - Colours
+  - property: bg_color
+    name: Background colour
+    type: color
+  - property: color
+    import: "@flourish/custom-colors"
 
+  - Line styles
+  - property: line_width
+    name: Line width
+    description: Width in pixels
+    type: number
+  - property: line_opacity
+    name: Line opacity
+    description: Set to a value between 0 and 1
+    type: number
+    min: 0
+    max: 1
+    step: 0.05
+  - property: curve
+    name: Curve
+    type: string
+    choices:
+      - - Straight
+        - curveLinear
+      - - Normal curve
+        - curveMonotoneX
+      - - Overflowing curve
+        - curveNatural
+      - - Step middle
+        - curveStep
+      - - Step after
+        - curveStepAfter
+      - - Step before
+        - curveStepBefore
+  - property: shade
+    new_section: true
+    name: Show shading behind line
+    type: boolean
+  - property: shade_width
+    name: Shading width
+    description: Width in pixels
+    show_if: shade
+    type: number
+  - property: shade_opacity
+    name: Shading opacity
+    description: Set to a value between 0 and 1
+    min: 0
+    max: 1
+    step: 0.05
+    show_if: shade
+    type: number
+  - property: missing
+    new_section: true
+    name: Show lines between missing data points
+    type: boolean
+  - property: missing_opacity
+    name: Line opacity
+    min: 0
+    max: 1
+    step: 0.1
+    show_if: missing
+    type: number
+  - property: missing_width
+    name: Line width
+    min: 0
+    step: 0.5
+    show_if: missing
+    type: number
+  - property: missing_dash_width
+    name: Line dash width
+    show_if: missing
+    type: number
+    width: half
+    step: 0.1
+    min: 0
+  - property: missing_dash_space
+    name: Line dash space
+    show_if: missing
+    type: number
+    width: half
+    min: 0
+  - Circle styles
+  - property: start_circle_r
+    name: Start radius
+    type: number
+    min: 0
+  - property: end_circle_r
+    name: End radius
+    type: number
+    min: 0
+  - property: end_circle_stroke
+    name: End stroke
+    type: number
+    min: 0
+  - property: end_circle_stroke_bg
+    name: Stroke color same as background
+    type: boolean
+  - Label styles
+  - property: rank_font_size
+    name: Rank font size
+    type: number
+  - property: label_font_size
+    name: Label font size
+    type: number
+  - property: horse_images
+    name: Show image in circle
+    type: boolean
+  - property: rank_outside_picture
+    name: Put score next to circle
+    type: boolean
+  - property: hide_labels
+    name: Only show label on mouseover
+    type: boolean
+  - property: label_format
+    import: "@flourish/number-formatter"
+
+  - Y axis
+  - property: y_axis_label_colors
+    name: Label colour
+    type: color
+  - property: y_axis_label_size
+    name: Font-size
+    type: number
+  - property: y_axis_min
+    name: Min score
+    type: number
+    optional: true
+    new_section: true
+    show_if:
+      value_type: scores
+  - property: y_axis_max
+    name: Max score
+    type: number
+    optional: true
+    show_if:
+      value_type: scores
+  - property: y_axis_min_rank
+    name: Min rank
+    type: number
+    new_section: true
+    optional: true
+    show_if:
+      value_type: ranks
+  - property: y_axis_max_rank
+    name: Max rank
+    type: number
+    optional: true
+    show_if:
+      value_type: ranks
+  - property: y_axis_format
+    import: "@flourish/number-formatter"
+
+  - X axis
+  - property: x_axis_label_colors
+    name: Label colour
+    type: color
+  - property: x_axis_label_size
+    name: Font-size
+    type: number
+  - property: rotate_label
+    name: Label rotation
+    type: string
+    style: buttons
+    width: full
+    choices:
+      - - Tilted
+        - tilted
+      - - Horizontal
+        - horizontal
+      - - Vertical
+        - vertical
+
+  - Animation
+  - property: stage_duration
+    name: Animation duration
+    description: 'The “race” animation length, in milliseconds per stage'
+    type: number
+    min: 0
+    step: 100
+  - property: update_duration
+    name: Mode duration
+    description: The animation duration when change between ranks and scores modes
+    type: number
+    min: 0
+    step: 100
+  - Margins
+  - property: margin_top
+    name: Top
+    type: number
+    min: 0
+    step: 10
+    width: quarter
+  - property: margin_right
+    name: Right
+    type: number
+    min: 0
+    step: 10
+    width: quarter
+  - property: margin_bottom
+    name: Bottom
+    type: number
+    min: 0
+    step: 10
+    width: quarter
+  - property: margin_left
+    name: Left
+    type: number
+    min: 0
+    step: 10
+    width: quarter
+  - Header
+  - property: header_title
+    name: Title
+    type: string
+  - property: header_subtitle
+    name: Subtitle
+    type: string
+  - property: header_margin
+    name: Margin
+    type: number
+    width: quarter
+  - property: header_color
+    name: Color
+    type: color
+    width: quarter
+  - property: header_align
+    name: Alignment
+    type: string
+    style: buttons
+    width: half
+    choices:
+      - - fa-align-left
+        - left
+      - - fa-align-center
+        - center
+      - - fa-align-right
+        - right
   - Footer
   - property: footer_source_name
     name: Source name
@@ -216,229 +426,9 @@ settings:
     name: Advanced
     type: boolean
     width: half
-  - Line styles
-  - property: line_width
-    name: Line width
-    description: Width in pixels
-    type: number
-  - property: line_opacity
-    name: Line opacity
-    description: Set to a value between 0 and 1
-    type: number
-    min: 0
-    max: 1
-    step: 0.05
-  - property: curve
-    name: Curve
-    type: string
-    choices:
-      - - Straight
-        - curveLinear
-      - - Normal curve
-        - curveMonotoneX
-      - - Overflowing curve
-        - curveNatural
-      - - Step middle
-        - curveStep
-      - - Step after
-        - curveStepAfter
-      - - Step before
-        - curveStepBefore
-  - property: shade
-    new_section: true
-    name: Show shading behind line
-    type: boolean
-  - property: shade_width
-    name: Shading width
-    description: Width in pixels
-    show_if: shade
-    type: number
-  - property: shade_opacity
-    name: Shading opacity
-    description: Set to a value between 0 and 1
-    min: 0
-    max: 1
-    step: 0.05
-    show_if: shade
-    type: number
-  - property: missing
-    new_section: true
-    name: Show lines between missing data points
-    type: boolean
-  - property: missing_opacity
-    name: Line opacity
-    min: 0
-    max: 1
-    step: 0.1
-    show_if: missing
-    type: number
-  - property: missing_width
-    name: Line width
-    min: 0
-    step: 0.5
-    show_if: missing
-    type: number
-  - property: missing_dash_width
-    name: Line dash width
-    show_if: missing
-    type: number
-    width: half
-    step: 0.1
-    min: 0
-  - property: missing_dash_space
-    name: Line dash space
-    show_if: missing
-    type: number
-    width: half
-    min: 0
-  - Circles and labels
-  - property: start_circle_r
-    name: Start radius
-    type: number
-    min: 0
-  - property: end_circle_r
-    name: End radius
-    type: number
-    min: 0
-  - property: end_circle_stroke
-    name: End stroke
-    type: number
-    min: 0
-  - property: end_circle_stroke_bg
-    name: Stroke color same as background
-    type: boolean
-  - property: rank_font_size
-    name: Rank font size
-    type: number
-  - property: label_font_size
-    name: Label font size
-    type: number
-  - property: label_decimals
-    name: Number of decimal places on scores
-    type: number
-  - property: rank_label_suffix
-    name: Suffix
-    type: string
-    width: half
-  - property: horse_images
-    name: Use image
-    type: boolean
-  - property: rank_outside_picture
-    name: Put score next to circle
-    type: boolean
-  - property: hide_labels
-    name: Only show label on mouseover
-    type: boolean
-  - Colours
-  - property: bg_color
-    name: Background colour
-    type: color
-  - property: color
-    import: "@flourish/custom-colors"
-
-  - Animation
-  - property: stage_duration
-    name: Animation duration
-    description: 'The “race” animation length, in milliseconds per stage'
-    type: number
-    min: 0
-    step: 100
-  - property: update_duration
-    name: Mode duration
-    description: The animation duration when change between ranks and scores modes
-    type: number
-    min: 0
-    step: 100
-  - Margins
-  - property: margin_top
-    name: Top
-    type: number
-    min: 0
-    step: 10
-    width: quarter
-  - property: margin_right
-    name: Right
-    type: number
-    min: 0
-    step: 10
-    width: quarter
-  - property: margin_bottom
-    name: Bottom
-    type: number
-    min: 0
-    step: 10
-    width: quarter
-  - property: margin_left
-    name: Left
-    type: number
-    min: 0
-    step: 10
-    width: quarter
-  - Y axis
-  - property: y_axis_label_colors
-    name: Label colour
-    type: color
-  - property: y_axis_label_size
-    name: Font-size
-    type: number
-  - property: y_axis_min
-    name: Min score
-    type: number
-    optional: true
-    new_section: true
-    show_if:
-      value_type: scores
-  - property: y_axis_max
-    name: Max score
-    type: number
-    optional: true
-    show_if:
-      value_type: scores
-  - property: y_axis_min_rank
-    name: Min rank
-    type: number
-    new_section: true
-    optional: true
-    show_if:
-      value_type: ranks
-  - property: y_axis_max_rank
-    name: Max rank
-    type: number
-    optional: true
-    show_if:
-      value_type: ranks
-
-  - property: y_axis_rounding
-    name: Round y axis
-    new_section: true
-    type: boolean
-  - property: y_axis_tick_prefix
-    name: Number prefix
-    type: string
-    width: half
-  - property: y_axis_tick_suffix
-    name: Number suffix
-    type: string
-    width: half
-  - X axis
-  - property: x_axis_label_colors
-    name: Label colour
-    type: color
-  - property: x_axis_label_size
-    name: Font-size
-    type: number
-  - property: rotate_label
-    name: Label rotation
-    type: string
-    style: buttons
-    width: full
-    choices:
-      - - Tilted
-        - tilted
-      - - Horizontal
-        - horizontal
-      - - Vertical
-        - vertical
+  - Number formatting
+  - property: localization
+    import: "@flourish/number-localization"
 data:
   - Data
   - name: Name column

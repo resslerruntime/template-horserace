@@ -13,11 +13,9 @@ var state = {
 	end_circle_stroke_bg: true,
 	horse_images: true,
 	hide_labels: false,
-	label_decimals: 1,
 	label_font_size: 12,
 	rank_font_size: 14,
 	rank_outside_picture: true,
-	rank_label_suffix: "",
 
 	line_opacity: 1,
 	line_width: 5,
@@ -59,12 +57,12 @@ var state = {
 	y_axis_max: "",
 	y_axis_min_rank: "",
 	y_axis_max_rank: "",
-	y_axis_rounding: false,
 	y_axis_label_colors: "#808080",
 	y_axis_label_size: 11,
 
-	y_axis_tick_prefix: "",
-	y_axis_tick_suffix: "%",
+	y_axis_format: {
+		suffix: "%"
+	},
 
 	header_title: "",
 	header_subtitle: "",
@@ -76,7 +74,10 @@ var state = {
 	filter_width: 300,
 	filter_include_all: true,
 	filter_all_label: "All",
-	filter: null
+	filter: null,
+
+	localization: {},
+	label_format: {}
 };
 
 export default state;
