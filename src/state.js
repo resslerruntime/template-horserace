@@ -78,6 +78,9 @@ var state = {
 
 	localization: {},
 	label_format: {}
+
+	header: {},
+	footer: {}
 };
 
 export default state;

@@ -1,22 +1,20 @@
 import { select } from "d3-selection";
 import { scaleLinear } from "d3-scale";
 import { min, max } from "d3-array";
-import { getFooterHeight } from "@flourish/footer";
 import { parser } from "./process_data";
 
 import state from "./state";
 import data from "./data";
 
-import { getHeaderHeight } from "./lib/header";
 import { is_mobile } from "./update_graphic";
-import { svg, plot } from "./create_dom";
+import { svg, plot, header, footer } from "./create_dom";
 
 var w, h, x, y, y_max_score, y_min_score, viz_ui;
 
 function updateSizesAndScales(current_position, max_rank) {
 	var window_height = window.innerHeight;
 	viz_ui = viz_ui || document.getElementById("viz-ui");
-	var svg_height = window_height - getHeaderHeight() - getFooterHeight() - viz_ui.getBoundingClientRect().height;
+	var svg_height = window_height - header.getHeight() - footer.getHeight() - viz_ui.getBoundingClientRect().height;
 
 	svg.attr("width", window.innerWidth).attr("height", svg_height);
 	var end_circle_size = state.end_circle_r + state.end_circle_stroke;

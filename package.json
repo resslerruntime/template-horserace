@@ -19,10 +19,11 @@
   },
   "dependencies": {
     "@flourish/controls": "^0.4.1",
-    "@flourish/custom-colors": "^1.0.0",
-    "@flourish/footer": "^0.1.6",
     "@flourish/number-formatter": "0.0.1-alpha4",
     "@flourish/number-localization": "0.0.1-alpha4",
+    "@flourish/custom-colors": "^1.0.1",
+    "@flourish/footer": "^1.0.0",
+    "@flourish/header": "^1.0.0",
     "@flourish/numbers": "^0.1.0",
     "d3-array": "^1.2.0",
     "d3-axis": "^1.0.8",
