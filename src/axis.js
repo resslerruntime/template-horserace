@@ -69,9 +69,13 @@ function updateYAxis(y, w, duration) {
 		.tickPadding(10);
 
 	select(".y.axis").transition().duration(duration).call(yAxis);
+
 	selectAll(".y.axis text")
 		.style("font-size", state.y_axis_label_size + "px")
 		.style("fill", state.y_axis_label_colors);
+
+	selectAll(".y.axis line").style("stroke", state.y_axis_stroke_color);
+	selectAll(".y.axis path").style("stroke", state.y_axis_stroke_color);
 
 	if (state.value_type == "scores" && state.y_axis_format.decimals === 0) {
 		if (selectAll(".y.axis .tick").size() > y_max_score - y_min_score) {

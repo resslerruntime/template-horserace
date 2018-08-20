@@ -242,6 +242,9 @@ settings:
     optional: true
     show_if:
       value_type: ranks
+  - property: y_axis_stroke_color
+    name: Stroke colour
+    type: color
   - property: y_axis_format
     import: "@flourish/number-formatter"
 

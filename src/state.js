@@ -48,10 +48,7 @@ var state = {
 	selected_horse: null,
 	mouseover_horse: null,
 
-	// x axis
-	x_axis_label_colors: "#808080",
-	x_axis_label_size: 11,
-	x_axis_rotate_label: "tilted",
+	// y axis
 
 	y_axis_min: "",
 	y_axis_max: "",
@@ -59,6 +56,7 @@ var state = {
 	y_axis_max_rank: "",
 	y_axis_label_colors: "#808080",
 	y_axis_label_size: 11,
+	y_axis_stroke_color: "#e0e1e1",
 
 	y_axis_format: {
 		suffix: "%"
