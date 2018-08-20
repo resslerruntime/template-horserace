@@ -20,37 +20,37 @@ function updateXAxis(x) {
 	select(".x.axis").call(xAxis)
 		.selectAll(".tick")
 		.selectAll("text")
-		.style("text-anchor", state.x_axis_rotate_label == "horizontal" ? "middle" : "start")
-		.attr("dx", state.x_axis_rotate_label == "horizontal" ? 0 : "2.3em")
-		.attr("y", state.x_axis_rotate_label == "horizontal" ? -30 : -9)
+		.style("text-anchor", state.rotate_label == "horizontal" ? "middle" : "start")
+		.attr("dx", state.rotate_label == "horizontal" ? 0 : "2.3em")
+		.attr("y", state.rotate_label == "horizontal" ? -30 : -9)
 		.attr("dy", function() {
-			if (state.x_axis_rotate_label == "tilted") return "-0.9em";
-			else if (state.x_axis_rotate_label == "horizontal") "-6em";
+			if (state.rotate_label == "tilted") return "-0.9em";
+			else if (state.rotate_label == "horizontal") "-6em";
 			else return "1em";
 		})
 		.attr("transform", function() {
-			if (state.x_axis_rotate_label == "tilted") return "rotate(-45)";
-			else if (state.x_axis_rotate_label == "vertical") return "rotate(-90)";
+			if (state.rotate_label == "tilted") return "rotate(-45)";
+			else if (state.rotate_label == "vertical") return "rotate(-90)";
 			else return "rotate(0)";
 		})
-		.style("font-size", state.x_axis_label_size + "px")
-		.style("fill", state.x_axis_label_colors);
+		.style("font-size", state.rotate_label + "px")
+		.style("fill", state.rotate_label);
 
 	if (selectAll(".x.axis .tick").size() > max_ticks) {
 		xAxis.ticks(max_ticks);
 		select(".x.axis").call(xAxis)
 			.selectAll("text")
-			.style("text-anchor", state.x_axis_rotate_label == "horizontal" ? "middle" : "start")
-			.attr("dx", state.x_axis_rotate_label == "horizontal" ? 0 : "2.3em")
-			.attr("y", state.x_axis_rotate_label == "horizontal" ? -30 : -9)
+			.style("text-anchor", state.rotate_label == "horizontal" ? "middle" : "start")
+			.attr("dx", state.rotate_label == "horizontal" ? 0 : "2.3em")
+			.attr("y", state.rotate_label == "horizontal" ? -30 : -9)
 			.attr("dy", function() {
-				if (state.x_axis_rotate_label == "tilted") return "-0.9em";
-				else if (state.x_axis_rotate_label == "horizontal") "-6em";
+				if (state.rotate_label == "tilted") return "-0.9em";
+				else if (state.rotate_label == "horizontal") "-6em";
 				else return "1em";
 			})
 			.attr("transform", function() {
-				if (state.x_axis_rotate_label == "tilted") return "rotate(-45)";
-				else if (state.x_axis_rotate_label == "vertical") return "rotate(-90)";
+				if (state.rotate_label == "tilted") return "rotate(-45)";
+				else if (state.rotate_label == "vertical") return "rotate(-90)";
 				else return "rotate(0)";
 			});
 	}

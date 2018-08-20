@@ -77,10 +77,14 @@ var state = {
 	filter: null,
 
 	localization: {},
-	label_format: {}
+	label_format: {},
 
 	header: {},
-	footer: {}
+	footer: {},
+	// x axis
+	xaxis_label_colors: "#808080",
+	xaxis_label_size: 11,
+	rotate_label: "tilted"
 };
 
 export default state;

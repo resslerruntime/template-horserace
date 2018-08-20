@@ -19,12 +19,13 @@
   },
   "dependencies": {
     "@flourish/controls": "^0.4.1",
-    "@flourish/number-formatter": "0.0.1-alpha4",
-    "@flourish/number-localization": "0.0.1-alpha4",
     "@flourish/custom-colors": "^1.0.1",
     "@flourish/footer": "^1.0.0",
     "@flourish/header": "^1.0.0",
+    "@flourish/number-formatter": "0.0.1-alpha4",
+    "@flourish/number-localization": "0.0.1-alpha4",
     "@flourish/numbers": "^0.1.0",
+    "ajv": "^6.5.3",
     "d3-array": "^1.2.0",
     "d3-axis": "^1.0.8",
     "d3-collection": "^1.0.4",
@@ -34,6 +35,7 @@
     "d3-transition": "^1.1.0",
     "less": "^2.7.2",
     "less-plugin-clean-css": "^1.5.1",
+    "number-formatter": "^1.2.0",
     "rollup": "^0.41.6",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-uglify": "^1.0.1"
