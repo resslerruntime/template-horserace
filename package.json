@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@flourish/eslint-plugin-flourish": "^0.7.2",
-    "eslint": "git://github.com/robinhouston/eslint.git#bug-ignoredNodes",
+    "eslint": "^4.8.0",
     "pre-commit": "^1.2.2"
   },
   "precommit": [
