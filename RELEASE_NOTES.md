@@ -1,3 +1,6 @@
+# 4.0.0 (not yet redeployed)
+* Custom colours and number formatting modules
+
 # 3.4.2
 * Add filter binding/control
 
