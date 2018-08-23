@@ -34,14 +34,13 @@
     "d3-transition": "^1.1.0",
     "less": "^3.8.1",
     "less-plugin-clean-css": "^1.5.1",
-    "number-formatter": "^1.2.0",
     "rollup": "^0.64.1",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-uglify": "^4.0.0"
   },
   "devDependencies": {
     "@flourish/eslint-plugin-flourish": "^0.7.2",
-    "eslint": "^4.8.0",
+    "eslint": "^5.4.0",
     "pre-commit": "^1.2.2"
   },
   "precommit": [
