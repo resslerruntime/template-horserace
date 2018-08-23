@@ -40,11 +40,17 @@ function getProcessedData() {
 		});
 
 		// Compute ranks
-		var prev_score = undefined, prev_rank = 0;
+		var prev_score = undefined, prev_rank = 0, ties = 0;
 		timeslice.forEach(function(d) {
 			if (d.score == null) d.rank = null;
-			else if (d.score == prev_score) d.rank = prev_rank;
-			else d.rank = ++prev_rank;
+			else if (d.score == prev_score) {
+				d.rank = prev_rank;
+				ties++;
+			}
+			else {
+				d.rank = ++prev_rank + ties;
+				ties = 0;
+			}
 			prev_score = d.score;
 			max_rank = Math.max(max_rank, d.rank);
 		});
