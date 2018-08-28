@@ -79,10 +79,11 @@ var state = {
 
 	header: {},
 	footer: {},
+
 	// x axis
-	xaxis_label_colors: "#808080",
-	xaxis_label_size: 11,
-	rotate_label: "tilted"
+	x_axis_label_color: "#808080",
+	x_axis_label_size: 11,
+	x_axis_rotate: "tilted"
 };
 
 export default state;

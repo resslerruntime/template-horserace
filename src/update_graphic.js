@@ -37,7 +37,7 @@ function updateNumberFormatter() {
 }
 
 function updateLines(horses, duration) {
-	var lines = g_lines.selectAll(".line-group").data(horses, function(d) { return d.unfiltered_index; });
+	var lines = g_lines.selectAll(".line-group").data(horses, function(d) { return d.name; });
 	var lines_enter = lines.enter().append("g").attr("class", "horse line-group")
 		.on("mouseenter", mouseover)
 		.on("mouseleave", mouseout)
@@ -81,7 +81,7 @@ function updateLines(horses, duration) {
 }
 
 function updateStartCircles(horses, duration) {
-	var start_circles = g_start_circles.selectAll(".start-circle").data(horses, function(d) { return d.unfiltered_index; });
+	var start_circles = g_start_circles.selectAll(".start-circle").data(horses, function(d) { return d.name; });
 	var start_circles_enter = start_circles.enter().append("circle").attr("class", "horse start-circle")
 		.attr("cy", function(d) { return y(d.start_circle.value); })
 		.attr("cx", function(d) { return x(d.start_circle.i); })
@@ -193,7 +193,7 @@ function updateChecks() {
 }
 
 function updateLabels(horses, duration) {
-	var labels = g_labels.selectAll(".labels-group").data(horses, function(d) { return d.unfiltered_index; });
+	var labels = g_labels.selectAll(".labels-group").data(horses, function(d) { return d.name; });
 
 	var labels_enter = labels.enter().append("g").attr("class", "horse labels-group")
 		.on("mouseenter", mouseover).on("mouseleave", mouseout).on("click", clickHorse)
