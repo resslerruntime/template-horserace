@@ -14,9 +14,11 @@ function updateXAxis(x) {
 		return data.horserace.column_names.stages[d] || "";
 	});
 
-	var min_space = 45;
+	var min_space = state.x_axis_rotate == "tilted" ? 30 : (state.x_axis_rotate == "vertical" ? state.x_axis_label_size : 80);
 	var max_ticks = Math.floor(w / min_space);
 	var plot_margin_top = Math.max(state.end_circle_r + state.end_circle_stroke, state.start_circle_r, state.line_width/2, state.shade_width/2);
+
+	select(".x.axis").call(xAxis);
 
 	if (selectAll(".x.axis .tick").size() > max_ticks) {
 		xAxis.ticks(max_ticks);
@@ -26,12 +28,12 @@ function updateXAxis(x) {
 		.selectAll(".tick text")
 		.style("text-anchor", state.x_axis_rotate == "horizontal" ? "middle" : "start")
 		.attr("dx", function() {
-			if (state.x_axis_rotate == "tilted") return plot_margin_top * 0.68;
+			if (state.x_axis_rotate == "tilted") return (plot_margin_top * 0.68) + 2;
 			else if (state.x_axis_rotate == "horizontal") return 0;
 			else if (state.x_axis_rotate == "vertical") return plot_margin_top;
 		})
 		.attr("dy", function() {
-			if (state.x_axis_rotate == "tilted") return -plot_margin_top * 0.68;
+			if (state.x_axis_rotate == "tilted") return (-plot_margin_top * 0.68) - 2;
 			else if (state.x_axis_rotate == "horizontal") return -plot_margin_top;
 			else return "0.25em";
 		})
