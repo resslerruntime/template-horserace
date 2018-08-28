@@ -21,7 +21,7 @@ function updateSizesAndScales(current_position, max_rank) {
 
 	svg.attr("width", window.innerWidth).attr("height", svg_height);
 	var end_circle_size = state.end_circle_r + state.end_circle_stroke;
-	var margin_right = !is_mobile ? state.margin_right : end_circle_size;
+	var margin_right = !is_mobile ? state.margin_right : end_circle_size + state.margin_right_mobile;
 	var margin_bottom = plot_margin_top + state.margin_bottom;
 	var margin_top = plot_margin_top + label_size.longest.height + state.margin_top;
 	var margin_left = plot_margin_top + state.margin_left;

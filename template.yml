@@ -291,19 +291,25 @@ settings:
     name: Right
     type: number
     min: 0
-    step: 10
+    step: 1
     width: quarter
   - property: margin_bottom
     name: Bottom
     type: number
     min: 0
-    step: 10
+    step: 1
     width: quarter
   - property: margin_left
     name: Left
     type: number
     min: 0
-    step: 10
+    step: 1
+    width: quarter
+  - property: margin_right_mobile
+    name: Right (mobile)
+    type: number
+    min: 0
+    step: 1
     width: quarter
 
   - Header
