@@ -10,21 +10,23 @@ import { is_mobile } from "./update_graphic";
 import { svg, plot, header, footer } from "./create_dom";
 
 var w, h, x, y, y_max_score, y_min_score, viz_ui;
-var label_size = {};
+var label_sizes = {
+	x_axis: {},
+	line: {}
+};
 
 function updateSizesAndScales(current_position, max_rank) {
 	getLabelSizes();
 	var window_height = window.innerHeight;
 	viz_ui = viz_ui || document.getElementById("viz-ui");
 	var svg_height = window_height - header.getHeight() - footer.getHeight() - viz_ui.getBoundingClientRect().height;
-	var plot_margin_top = Math.max(state.end_circle_r + state.end_circle_stroke, state.start_circle_r, state.line_width/2, state.shade_width/2);
-
+	var plot_margin = Math.max(state.end_circle_r + state.end_circle_stroke, state.start_circle_r, state.line_width/2, state.shade_width/2);
 	svg.attr("width", window.innerWidth).attr("height", svg_height);
 	var end_circle_size = state.end_circle_r + state.end_circle_stroke;
-	var margin_right = !is_mobile ? state.margin_right : end_circle_size + state.margin_right_mobile;
-	var margin_bottom = plot_margin_top + state.margin_bottom;
-	var margin_top = plot_margin_top + label_size.longest.height + state.margin_top;
-	var margin_left = plot_margin_top + state.margin_left;
+	var margin_right = !is_mobile ? state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 30 : 20) : end_circle_size + state.margin_right_mobile;
+	var margin_bottom = plot_margin + state.margin_bottom;
+	var margin_top = plot_margin + label_sizes.x.height + state.margin_top;
+	var margin_left = Math.max(plot_margin, 5) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
 
 	plot.attr("transform", "translate(" + margin_left + "," + margin_top + ")");
 
@@ -54,22 +56,42 @@ function updateSizesAndScales(current_position, max_rank) {
 }
 
 function getLabelSizes() {
-	var longest_label, longest_label_size = 0;
-	data.horserace.column_names.stages.forEach(function(name) {
-		if (name.length > longest_label_size) {
-			longest_label = name;
-			longest_label_size = name.length;
+	label_sizes = {
+		x: { size: 0 },
+		line: { size: 0 }
+	};
+
+	// Get longest line label
+	data.horserace.forEach(function(d) {
+		if (d.name.length > label_sizes.line.size) {
+			label_sizes.line.text = d.name;
+			label_sizes.line.size = d.name.length;
 		}
 	});
-	var longest_el = svg.append("text");
-	longest_el.html(longest_label).style("font-size", state.x_axis_label_size + "px");
-	longest_el.attr("transform", function() {
-		if (state.x_axis_rotate == "tilted") return "rotate(-45)";
-		else if (state.x_axis_rotate == "vertical") return "rotate(-90)";
-		else return "rotate(0)";
+	label_sizes.line.el = svg.append("text").html(label_sizes.line.text)
+		.style("font-size", state.label_font_size + "px");
+	label_sizes.line.width = label_sizes.line.el.node().getBoundingClientRect().width;
+	label_sizes.line.el.remove();
+	// console.log(label_sizes.line.el.node())
+
+	// Get longest x axis label
+	data.horserace.column_names.stages.forEach(function(name) {
+		if (name.length > label_sizes.x.size) {
+			label_sizes.x.text = name;
+			label_sizes.x.size = name.length;
+		}
 	});
-	label_size.longest = longest_el.node().getBoundingClientRect();
-	longest_el.remove();
+	label_sizes.x.el = svg.append("text")
+		.html(label_sizes.x.text)
+		.style("font-size", state.x_axis_label_size + "px")
+		.attr("transform", function() {
+			if (state.x_axis_rotate == "tilted") return "rotate(-45)";
+			else if (state.x_axis_rotate == "vertical") return "rotate(-90)";
+			else return "rotate(0)";
+		});
+
+	label_sizes.x.height = label_sizes.x.el.node().getBoundingClientRect().height;
+	label_sizes.x.el.remove();
 }
 
 export { updateSizesAndScales, w, h, x, y, y_max_score, y_min_score };

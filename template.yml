@@ -290,7 +290,6 @@ settings:
   - property: margin_right
     name: Right
     type: number
-    min: 0
     step: 1
     width: quarter
   - property: margin_bottom
@@ -302,7 +301,6 @@ settings:
   - property: margin_left
     name: Left
     type: number
-    min: 0
     step: 1
     width: quarter
   - property: margin_right_mobile

@@ -1,9 +1,9 @@
 var state = {
 	margin_top: 5,
-	margin_right: 80,
+	margin_right: 10,
 	margin_right_mobile: 5,
 	margin_bottom: 0,
-	margin_left: 10,
+	margin_left: 5,
 
 	bg_color: "#FFFFFF",
 	color: {},
