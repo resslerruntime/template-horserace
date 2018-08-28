@@ -255,7 +255,7 @@ settings:
   - property: x_axis_label_size
     name: Font-size
     type: number
-  - property: rotate_label
+  - property: x_axis_rotate
     name: Label rotation
     type: string
     style: buttons
@@ -286,7 +286,6 @@ settings:
     name: Top
     type: number
     min: 0
-    step: 10
     width: quarter
   - property: margin_right
     name: Right

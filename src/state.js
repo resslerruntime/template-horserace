@@ -1,5 +1,5 @@
 var state = {
-	margin_top: 100,
+	margin_top: 5,
 	margin_right: 80,
 	margin_bottom: 0,
 	margin_left: 10,

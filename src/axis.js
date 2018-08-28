@@ -16,18 +16,26 @@ function updateXAxis(x) {
 
 	var min_space = 45;
 	var max_ticks = Math.floor(w / min_space);
+	var plot_margin_top = Math.max(state.end_circle_r + state.end_circle_stroke, state.start_circle_r, state.line_width/2, state.shade_width/2);
+
+	if (selectAll(".x.axis .tick").size() > max_ticks) {
+		xAxis.ticks(max_ticks);
+	}
 
 	select(".x.axis").call(xAxis)
-		.selectAll(".tick")
-		.selectAll("text")
+		.selectAll(".tick text")
 		.style("text-anchor", state.x_axis_rotate == "horizontal" ? "middle" : "start")
-		.attr("dx", state.x_axis_rotate == "horizontal" ? 0 : "2.3em")
-		.attr("y", state.x_axis_rotate == "horizontal" ? -30 : -9)
-		.attr("dy", function() {
-			if (state.x_axis_rotate == "tilted") return "-0.9em";
-			else if (state.x_axis_rotate == "horizontal") "-6em";
-			else return "1em";
+		.attr("dx", function() {
+			if (state.x_axis_rotate == "tilted") return plot_margin_top * 0.68;
+			else if (state.x_axis_rotate == "horizontal") return 0;
+			else if (state.x_axis_rotate == "vertical") return plot_margin_top;
 		})
+		.attr("dy", function() {
+			if (state.x_axis_rotate == "tilted") return -plot_margin_top * 0.68;
+			else if (state.x_axis_rotate == "horizontal") return -plot_margin_top;
+			else return "0.25em";
+		})
+		.attr("y", 	0)
 		.attr("transform", function() {
 			if (state.x_axis_rotate == "tilted") return "rotate(-45)";
 			else if (state.x_axis_rotate == "vertical") return "rotate(-90)";
@@ -35,25 +43,6 @@ function updateXAxis(x) {
 		})
 		.style("font-size", state.x_axis_label_size + "px")
 		.style("fill", state.x_axis_label_color);
-
-	if (selectAll(".x.axis .tick").size() > max_ticks) {
-		xAxis.ticks(max_ticks);
-		select(".x.axis").call(xAxis)
-			.selectAll("text")
-			.style("text-anchor", state.x_axis_rotate == "horizontal" ? "middle" : "start")
-			.attr("dx", state.x_axis_rotate == "horizontal" ? 0 : "2.3em")
-			.attr("y", state.x_axis_rotate == "horizontal" ? -30 : -9)
-			.attr("dy", function() {
-				if (state.x_axis_rotate == "tilted") return "-0.9em";
-				else if (state.x_axis_rotate == "horizontal") "-6em";
-				else return "1em";
-			})
-			.attr("transform", function() {
-				if (state.x_axis_rotate == "tilted") return "rotate(-45)";
-				else if (state.x_axis_rotate == "vertical") return "rotate(-90)";
-				else return "rotate(0)";
-			});
-	}
 }
 
 function updateYAxis(y, w, duration) {
