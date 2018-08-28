@@ -68,11 +68,16 @@ function updateYAxis(y, w, duration) {
 	selectAll(".y.axis line").style("stroke", state.y_axis_stroke_color);
 	selectAll(".y.axis path").style("stroke", state.y_axis_stroke_color);
 
+
 	if (state.value_type == "scores" && state.y_axis_format.decimals === 0) {
 		if (selectAll(".y.axis .tick").size() > y_max_score - y_min_score) {
 			yAxis.ticks(y_max_score - y_min_score);
 			select(".y.axis").call(yAxis);
 		}
+	}
+	else if (state.value_type == "ranks") {
+		yAxis.ticks(data.horserace.length);
+		select(".y.axis").call(yAxis);
 	}
 }
 
