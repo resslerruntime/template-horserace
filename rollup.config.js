@@ -11,6 +11,6 @@ export default {
 	},
 	plugins: [
 		nodeResolve({ jsnext: true }),
-		// uglify(),
+		uglify()
 	]
 };
