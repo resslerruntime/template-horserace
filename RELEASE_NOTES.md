@@ -1,4 +1,4 @@
-# 4.0.0 (not yet redeployed)
+# 4.0.0 (deployed to nursery)
 * Custom colours and number formatting modules
 
 # 3.4.2
