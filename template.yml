@@ -353,3 +353,31 @@ data:
     key: filter
     type: column
     optional: true
+
+tour:
+  - text: 'This template is ideal for showing the changing fortunes of candidates in elections, football teams, etc. It provides two modes, and allows you to animate between them: a line chart, which plots the raw values in the data, and a “bump” chart, which computes and plots the ranks.'
+    anchor: '.preview-holder'
+    position: top
+    direction: bottom
+  - text: You can adjust the style and behaviour of your visualisation using the settings panels here.
+    anchor: '.template-settings'
+    position: left
+    direction: right
+  - text: For example, you can choose whether to initially show scores or rankings by toggling these tabs.
+    anchor: '#setting-value_type'
+  - text: Now, click here to add your own data
+    anchor: 'button[name="show-pane"][value=data]'
+    position: bottom
+  - text: You can edit the sample data in the spreadsheet below
+    anchor: '#spreadsheet-container'
+    position: top
+    direction: bottom
+    fire: 'click button[name="show-pane"][value=data]'
+    delay: 100
+  - text: Or click here to upload your own data. You can upload Excel, comma delimited files, or JSON.
+    anchor: '.add-data-container'
+  - text: After you have uploaded data, you will probably have to adjust the column selections here to make sure the correct columns are used.
+    anchor: '.side-panel-data'
+    position: left
+    direction: right
+    button_text: That’s all folks
