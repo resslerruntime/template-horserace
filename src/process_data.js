@@ -48,7 +48,8 @@ function getProcessedData() {
 				ties++;
 			}
 			else {
-				d.rank = ++prev_rank + ties;
+				d.rank = prev_rank + ties + 1;
+				prev_rank = d.rank;
 				ties = 0;
 			}
 			prev_score = d.score;
