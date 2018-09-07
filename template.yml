@@ -35,6 +35,17 @@ settings:
         - true
       - - Higher scores lose
         - false
+  - property: ties_mode
+    name: Ties mode
+    type: string
+    style: buttons
+    choices:
+      -
+        - Competition
+        - competition
+      -
+        - Dense
+        - dense
 
 
   - Interface
