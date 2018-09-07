@@ -41,6 +41,7 @@ var state = {
 
 	value_type: "ranks",
 	higher_scores_win: true,
+	ties_mode: "competition",
 	show_buttons: true,
 	show_replay: true,
 

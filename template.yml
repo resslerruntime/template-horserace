@@ -35,6 +35,18 @@ settings:
         - true
       - - Higher scores lose
         - false
+  - property: ties_mode
+    name: Rank ties mode
+    type: string
+    style: buttons
+    description: What rank ranks should be given when there are ties? See https://en.wikipedia.org/wiki/Ranking for explanation of names.
+    choices:
+      -
+        - Competition
+        - competition
+      -
+        - Dense
+        - dense
 
 
   - Interface

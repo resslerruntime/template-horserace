@@ -6,10 +6,45 @@ import state from "./state";
 
 var localization = initLocalization(state.localization);
 var parser;
+var max_rank;
+
+
+function addCompetitionRanks(data) {
+	var prev_score = undefined, prev_rank = 0, ties = 0;
+	data.forEach(function(d) {
+		if (d.score == null) d.rank = null;
+		else if (d.score == prev_score) {
+			d.rank = prev_rank;
+			ties++;
+		}
+		else {
+			d.rank = prev_rank + ties + 1;
+			prev_rank = d.rank;
+			ties = 0;
+		}
+		prev_score = d.score;
+		max_rank = Math.max(max_rank, d.rank);
+	});
+}
+
+
+function addDenseRanks(data) {
+	var prev_score = undefined, prev_rank = 0;
+
+	data.forEach(function(d) {
+		if (d.score == null) d.rank = null;
+		else if (d.score == prev_score) d.rank = prev_rank;
+		else d.rank = ++prev_rank;
+		prev_score = d.score;
+		max_rank = Math.max(max_rank, d.rank);
+	});
+}
+
 
 function getProcessedData() {
 	parser = localization.getParser();
-	var timeslices = [], max_rank = 0;
+	var timeslices = [];
+	max_rank = 0;
 
 	data.horserace.forEach(function(d, i) { d.unfiltered_index = i; });
 
@@ -40,14 +75,7 @@ function getProcessedData() {
 		});
 
 		// Compute ranks
-		var prev_score = undefined, prev_rank = 0;
-		timeslice.forEach(function(d) {
-			if (d.score == null) d.rank = null;
-			else if (d.score == prev_score) d.rank = prev_rank;
-			else d.rank = ++prev_rank;
-			prev_score = d.score;
-			max_rank = Math.max(max_rank, d.rank);
-		});
+		(state.ties_mode === "dense" ? addDenseRanks : addCompetitionRanks)(timeslice);
 
 		// Make look-up version
 		var timeslice_by_horse_index = {};
