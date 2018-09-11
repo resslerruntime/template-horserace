@@ -1,4 +1,4 @@
-# 4.0.0 (deployed to nursery)
+# 4.0.0
 * Custom colours and number formatting modules
 * Rank ties modes
 
