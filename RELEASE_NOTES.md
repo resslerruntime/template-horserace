@@ -1,3 +1,6 @@
+# 4.0.1
+* Fix mysterious black lines bug
+
 # 4.0.0
 * Custom colours and number formatting modules
 * Rank ties modes
