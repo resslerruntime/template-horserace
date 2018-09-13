@@ -3,7 +3,7 @@ import { axisLeft, axisTop } from "d3-axis";
 import initFormatter from "@flourish/number-formatter";
 import { localization } from "./process_data";
 
-import { y_min_score, y_max_score, w } from "./size";
+import { w } from "./size";
 import state from "./state";
 import data from "./data";
 
@@ -57,8 +57,9 @@ function updateYAxis(y, w, duration) {
 			if (state.value_type == "ranks") return d % 1 == 0 ? d : "";
 			return yAxisFormat(d);
 		})
-		.tickPadding(10);
+		.tickPadding(5);
 
+	if (state.value_type == "ranks") yAxis.ticks(data.horserace.length);
 	select(".y.axis").transition().duration(duration).call(yAxis);
 
 	selectAll(".y.axis text")
@@ -67,18 +68,6 @@ function updateYAxis(y, w, duration) {
 
 	selectAll(".y.axis line").style("stroke", state.y_axis_stroke_color);
 	selectAll(".y.axis path").style("stroke", state.y_axis_stroke_color);
-
-
-	if (state.value_type == "scores" && state.y_axis_format.decimals === 0) {
-		if (selectAll(".y.axis .tick").size() > y_max_score - y_min_score) {
-			yAxis.ticks(y_max_score - y_min_score);
-			select(".y.axis").call(yAxis);
-		}
-	}
-	else if (state.value_type == "ranks") {
-		yAxis.ticks(data.horserace.length);
-		select(".y.axis").call(yAxis);
-	}
 }
 
 function updateAxes(x, y, w, duration) {

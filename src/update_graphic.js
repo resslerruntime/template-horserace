@@ -427,7 +427,7 @@ function updateGraphic(duration) {
 	updateSizesAndScales(current_position, horses.max_rank);
 	updateLineStyle();
 	updateColors();
-	updateAxes(x, y, w, 0);
+	updateAxes(x, y, w, duration);
 	updateHorses(horses, duration);
 	if (current_position != getTargetPosition()) play();
 	else tieBreak();

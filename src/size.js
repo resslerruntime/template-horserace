@@ -94,4 +94,4 @@ function getLabelSizes() {
 	label_sizes.x.el.remove();
 }
 
-export { updateSizesAndScales, w, h, x, y, y_max_score, y_min_score };
+export { updateSizesAndScales, w, h, x, y };
