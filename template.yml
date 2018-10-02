@@ -365,15 +365,15 @@ tour:
     direction: right
   - text: For example, you can choose whether to initially show scores or rankings by toggling these tabs.
     anchor: '#setting-value_type'
-  - text: Now, click here to add your own data
+  - text: Now, click here to examine the data
     anchor: 'button[name="show-pane"][value=data]'
     position: bottom
+    trigger: 'click button[name="show-pane"][value=data]'
+    delay: 100
   - text: You can edit the sample data in the spreadsheet below
     anchor: '#spreadsheet-container'
     position: top
     direction: bottom
-    fire: 'click button[name="show-pane"][value=data]'
-    delay: 100
   - text: Or click here to upload your own data. You can upload Excel, comma delimited files, or JSON.
     anchor: '.add-data-container'
   - text: After you have uploaded data, you will probably have to adjust the column selections here to make sure the correct columns are used.
