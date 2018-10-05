@@ -1,6 +1,6 @@
-id: horserace
-name: Horserace chart
-author: Flourish & Google News Lab teams
+id: horserace-ey
+name: EY horserace chart
+author: Flourish team
 description: A “horserace” or “bump” chart to show changing rank over time
 image_download: false
 sdk_version: 3
@@ -110,7 +110,13 @@ settings:
     type: color
   - property: color
     import: "@flourish/custom-colors"
-
+    overrides:
+      - property: palette
+        choices:
+          - "EY Primary": ["#2DB757", "#27ACAA", "#188CE5", "#3D108A", "#750E5C", "#FF4136", "#FF6D00", "#004F4F", "#7A130D"]
+          - "EY Colours 1": ["#004F4F", "#0E9090", "#43C9C2", "#93F0E6", "#5A0B42", "#932B73", "#B14991", "#C981B2"]
+          - "EY Colours 2": ["#004F4F", "#0E7575", "#0E9090", "#43C9C2", "#5FE6E1", "#93F0E6"]
+          - "EY Colours 3": ["#3D1089", "#168CE5", "#25ACAA", "#29D07E", "#5A0B42", "#932B73", "#B14991", "#C981B2"]
   - Line styles
   - property: line_width
     name: Line width

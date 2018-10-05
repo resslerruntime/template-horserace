@@ -6,7 +6,9 @@ var state = {
 	margin_left: 5,
 
 	bg_color: "#FFFFFF",
-	color: {},
+	color: {
+		palette: ["#004F4F", "#0E9090", "#43C9C2", "#93F0E6", "#5A0B42", "#932B73", "#B14991", "#C981B2"]
+	},
 
 	start_circle_r: 5,
 	end_circle_r: 20,
@@ -19,20 +21,20 @@ var state = {
 	rank_outside_picture: true,
 
 	line_opacity: 1,
-	line_width: 5,
-	curve: "curveLinear",
+	line_width: 4,
+	curve: "curveMonotoneX",
 
 	shade: true,
 	shade_opacity: 0.1,
-	shade_width: 20,
+	shade_width: 14,
 
 	missing: false,
 	missing_opacity: 1,
 	missing_dash_width: 0.2,
 	missing_dash_space: 4,
-	missing_width: 1.5,
+	missing_width: 2,
 
-	stage_duration: 500,
+	stage_duration: 1000,
 	update_duration: 500,
 
 	label_ranks: "Ranks",
@@ -79,7 +81,10 @@ var state = {
 	localization: {},
 	label_format: {},
 
-	header: {},
+	header: {
+		title: "Lorem ipsum dolor sit amet",
+		subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+	},
 	footer: {},
 
 	// x axis

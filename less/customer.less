@@ -1,1 +1,52 @@
 /* Customer-specific styles go in this file. */
+
+body {
+	font-family: "EYInterstate", sans-serif;
+	@font-face{font-family:EYInterstate;src:url(fonts/EYInterstate-Regular.eot?#iefix) format('embedded-opentype'),url(fonts/EYInterstate-Regular.woff) format('woff'),url(fonts/EYInterstate-Regular.ttf) format('truetype'),url(fonts/EYInterstate-Regular.svg#EYInterstate-Regular) format('svg');font-weight:400;font-style:normal}@font-face{font-family:EYInterstate;src:url(fonts/EYInterstate-Light.eot?#iefix) format('embedded-opentype'),url(fonts/EYInterstate-Light.woff) format('woff'),url(fonts/EYInterstate-Light.ttf) format('truetype'),url(fonts/EYInterstate-Light.svg#EYInterstate-Light) format('svg');font-weight:200;font-style:normal}@font-face{font-family:EYInterstate;src:url(fonts/EYInterstate-Bold.eot?#iefix) format('embedded-opentype'),url(fonts/EYInterstate-Bold.woff) format('woff'),url(fonts/EYInterstate-Bold.ttf) format('truetype'),url(fonts/EYInterstate-Bold.svg#EYInterstate-Bold) format('svg');font-weight:600;font-style:normal}
+
+	input {
+		font-family: inherit;
+	}
+
+	.tick {
+		font-weight: 400;
+		letter-spacing: 0.05em;
+	}
+
+	.flourish-header {
+		h1 {
+			font-weight: 300;
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+			max-width: 720px;
+			letter-spacing: 0.01em;
+			font-size: 36px;
+			@media screen and (max-width: 1000px) {
+				max-width: 500px;
+				font-size: 28px;
+			}
+			@media screen and (max-width: 600px) {
+				font-size: 20px;
+			}
+		}
+		h2 {
+			font-weight: 300;
+			max-width: 720px;
+			opacity: 0.75;
+			line-height: 1.4em;
+			font-size: 18px;
+			@media screen and (max-width: 1000px) {
+				max-width: 500px;
+				font-size: 14px;
+			}
+			@media screen and (max-width: 600px) {
+				font-size: 12px;
+			}
+		}
+	}
+
+	.flourish-footer {
+		font-size: 14px;
+		padding-bottom: 10px;
+	}
+}
