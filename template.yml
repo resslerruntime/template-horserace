@@ -365,3 +365,9 @@ data:
     key: filter
     type: column
     optional: true
+  - name: Line dash size
+    description: A column with number to set the length of the dashes for the line. Blank cells mean a solid line.
+    dataset: horserace
+    key: dash
+    type: column
+    optional: true

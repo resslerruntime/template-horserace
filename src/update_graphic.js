@@ -61,7 +61,8 @@ function updateLines(horses, duration) {
 		.transition().duration(duration)
 		.attr("d", function(d) { return line(d.line); })
 		.attr("opacity", state.line_opacity)
-		.attr("stroke-width", !is_mobile ? state.line_width : Math.max(Math.round(state.line_width/2), 2));
+		.attr("stroke-width", !is_mobile ? state.line_width : Math.max(Math.round(state.line_width/2), 2))
+		.attr("stroke-dasharray", function(d) { return d.dash ? d.dash + " " + d.dash : null; });
 	lines_update
 		.select(".shade")
 		.transition().duration(duration)
