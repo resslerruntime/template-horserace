@@ -1,3 +1,6 @@
+# 4.0.2
+* Update custom colors module
+
 # 4.0.1
 * Fix mysterious black lines bug
 
