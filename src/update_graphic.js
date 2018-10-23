@@ -147,11 +147,8 @@ function updateChecks() {
 	checks_enter.append("circle");
 	var checks_update = checks.merge(checks_enter);
 
-	checks_update.attr("transform", function(d, i) {
-		return "translate(" + (x(i) - (check_width / 2)) + ", " + "-" + check_margin + ")";
-	})
-	.on("mouseenter", function(d) {
-		selected_check = d;
+	checks_update.on("mouseenter", function(d, i) {
+		selected_check = "check-" + i;
 		select(this).select("line").attr("opacity", "1");
 		select(this).select("circle").attr("opacity", "1");
 	})
@@ -163,6 +160,10 @@ function updateChecks() {
 	.on("click", function(d, i) {
 		state.target_position = i + 1;
 		update();
+	});
+
+	checks_update.attr("transform", function(d, i) {
+		return "translate(" + (x(i) - (check_width / 2)) + ", " + "-" + check_margin + ")";
 	});
 
 	checks_update.select("rect")
@@ -178,7 +179,7 @@ function updateChecks() {
 		.attr("y1", check_inner_margin)
 		.attr("y2", h + check_margin)
 		.attr("stroke", "#e1e1e1")
-		.attr("opacity", function(d) { return d == selected_check ? 1 : 0; })
+		.attr("opacity", function(d, i) { return "check-" + i === selected_check ? 1 : 0; })
 		.style("pointer-events", "none");
 
 	checks_update.select("circle")
@@ -186,7 +187,7 @@ function updateChecks() {
 		.attr("cx", check_width / 2)
 		.attr("cy", check_inner_margin)
 		.attr("fill", "#e1e1e1")
-		.attr("opacity", function(d) { return d == selected_check ? 1 : 0; })
+		.attr("opacity", function(d, i) { return "check-" + i === selected_check ? 1 : 0; })
 		.style("pointer-events", "none");
 
 	checks.exit().remove();
