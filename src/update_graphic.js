@@ -263,7 +263,7 @@ function updateLabels(horses, duration) {
 	var rank_font_size = !is_mobile ? state.rank_font_size : Math.min(state.rank_font_size, 12);
 	var label_font_size = !is_mobile ? state.label_font_size : Math.min(state.label_font_size, 12);
 
-	labels_update.selectAll(".rank-number")
+	labels_update.select(".rank-number")
 		.attr("font-size", rank_font_size)
 		.text(function(d) {
 			return state.rank_outside_picture ? "" : displayValue(d) + " ";
