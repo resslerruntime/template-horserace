@@ -260,7 +260,7 @@ settings:
     import: "@flourish/number-formatter"
 
   - X axis
-  - property: x_axis_label_colors
+  - property: x_axis_label_color
     name: Label colour
     type: color
   - property: x_axis_label_size
