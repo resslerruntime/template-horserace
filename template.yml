@@ -2,7 +2,6 @@ id: horserace
 name: Horserace chart
 author: Flourish & Google News Lab teams
 description: A “horserace” or “bump” chart to show changing rank over time
-image_download: false
 sdk_version: 3
 build:
   src:
