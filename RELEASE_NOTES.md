@@ -1,3 +1,8 @@
+# 4.0.3
+* Fix bug where circle ranks didn't update
+* Fix bug where x axis label colors didn't update
+* Fix bug where check marks were showing for columns without label
+
 # 4.0.2
 * Update custom colors module
 
