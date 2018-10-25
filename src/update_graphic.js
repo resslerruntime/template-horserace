@@ -193,6 +193,7 @@ function updateChecks() {
 }
 
 function updateLabels(horses, duration) {
+	var font_family = fontFamily();
 	var labels = g_labels.selectAll(".labels-group").data(horses, function(d) { return d.name; });
 
 	var labels_enter = labels.enter().append("g").attr("class", "horse labels-group")
@@ -212,11 +213,12 @@ function updateLabels(horses, duration) {
 		.attr("dominant-baseline", "central")
 		.attr("text-anchor", "middle");
 	labels_enter.append("g").attr("class", "name");
-	labels_enter.select(".name").append("text").attr("class", "name-bg")
+	labels_enter.select(".name").append("text").attr("class", "name-bg").attr("font-family", font_family)
 		.attr("alignment-baseline", "central").attr("dominant-baseline", "central")
 		.attr("stroke-width", "5px");
-	labels_enter.select(".name").append("text").attr("class", "name-fg")
+	labels_enter.select(".name").append("text").attr("class", "name-fg").attr("font-family", font_family)
 		.attr("alignment-baseline", "central").attr("dominant-baseline", "central");
+
 	labels_enter.selectAll(".name-fg, .name-bg").append("tspan").attr("class", "name-rank")
 		.attr("font-weight", "bold");
 	labels_enter.selectAll(".name-fg, .name-bg").append("tspan").attr("class", "name-label");
@@ -419,6 +421,7 @@ function updateLineStyle() {
 
 function updateGraphic(duration) {
 	is_mobile = window.innerWidth <= 420;
+	updateFonts();
 	updateNumberFormatter();
 	updateUI();
 	updateFilterControls();
@@ -433,4 +436,28 @@ function updateGraphic(duration) {
 	else tieBreak();
 }
 
-export { updateGraphic, getTargetPosition, transformLabel, displayValue, labels_update, end_circle_r, is_mobile };
+/**
+ *		This is not necessarily production ready - just using for testing
+ */
+var font_url, font_link, font_family;
+
+function updateFonts() {
+	if (!state.body_font || state.body_font.url == font_url) return;
+	font_url = state.body_font.url;
+	if (!font_link) {
+		font_link = document.createElement("link");
+		font_link.setAttribute("rel", "stylesheet");
+		document.body.appendChild(font_link);
+	}
+	font_link.setAttribute("href", state.body_font.url);
+	font_family = state.body_font.name;
+	document.querySelectorAll("text").forEach(function(text) {
+		text.setAttribute("font-family", font_family);
+	});
+}
+
+function fontFamily() {
+	return font_family;
+}
+
+export { updateGraphic, getTargetPosition, transformLabel, displayValue, labels_update, end_circle_r, is_mobile, fontFamily };

@@ -2,6 +2,7 @@ import { select, selectAll } from "d3-selection";
 import { axisLeft, axisTop } from "d3-axis";
 import initFormatter from "@flourish/number-formatter";
 import { localization } from "./process_data";
+import { fontFamily } from "./update_graphic";
 
 import { w } from "./size";
 import state from "./state";
@@ -24,6 +25,7 @@ function updateXAxis(x) {
 		xAxis.ticks(max_ticks);
 	}
 
+	var font_family = fontFamily();
 	select(".x.axis").call(xAxis)
 		.selectAll(".tick text")
 		.style("text-anchor", state.x_axis_rotate == "horizontal" ? "middle" : "start")
@@ -44,12 +46,14 @@ function updateXAxis(x) {
 			else return "rotate(0)";
 		})
 		.style("font-size", state.x_axis_label_size + "px")
-		.style("fill", state.x_axis_label_color);
+		.style("fill", state.x_axis_label_color)
+		.style("font-family", "'" + font_family + "'");
 }
 
 function updateYAxis(y, w, duration) {
 	var localeFunction = localization.getFormatterFunction();
 	var yAxisFormat = getYAxisFormatter(localeFunction);
+	var font_family = fontFamily();
 
 	var yAxis = axisLeft(y)
 		.tickSize(-w)
@@ -64,6 +68,7 @@ function updateYAxis(y, w, duration) {
 
 	selectAll(".y.axis text")
 		.style("font-size", state.y_axis_label_size + "px")
+		.style("font-family", "'" + font_family + "'")
 		.style("fill", state.y_axis_label_colors);
 
 	selectAll(".y.axis line").style("stroke", state.y_axis_stroke_color);

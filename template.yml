@@ -50,6 +50,9 @@ settings:
 
 
   - Interface
+  - property: body_font
+    name: Font
+    type: font
   - property: show_buttons
     name: Show ranks/scores buttons
     type: boolean
@@ -186,6 +189,7 @@ settings:
     type: number
     width: half
     min: 0
+
   - Circle styles
   - property: start_circle_r
     name: Start radius
@@ -202,6 +206,7 @@ settings:
   - property: end_circle_stroke_bg
     name: Stroke color same as background
     type: boolean
+
   - Label styles
   - property: rank_font_size
     name: Rank font size

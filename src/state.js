@@ -85,7 +85,12 @@ var state = {
 	// x axis
 	x_axis_label_color: "#808080",
 	x_axis_label_size: 11,
-	x_axis_rotate: "tilted"
+	x_axis_rotate: "tilted",
+
+	body_font: {
+		name: "Sanchez",
+		url: "https://fonts.googleapis.com/css?family=Sanchez"
+	}
 };
 
 export default state;
