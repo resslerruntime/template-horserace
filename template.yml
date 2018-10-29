@@ -46,6 +46,8 @@ settings:
       -
         - Dense
         - dense
+    show_if:
+      value_type: ranks
 
 
   - Interface
