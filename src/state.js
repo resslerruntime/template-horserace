@@ -1,12 +1,14 @@
 var state = {
 	margin_top: 5,
-	margin_right: 10,
+	margin_right: 18,
 	margin_right_mobile: 5,
 	margin_bottom: 0,
 	margin_left: 5,
 
 	bg_color: "#FFFFFF",
-	color: {},
+	color: {
+		palette: [ "#1d2b4d", "#56c9e8", "#ff5270", "#cd8bda", "#bd336e", "#61a1bd", "#3b8abf", "#d67a99", "#306182", "#732e59" ]
+	},
 
 	start_circle_r: 5,
 	end_circle_r: 20,

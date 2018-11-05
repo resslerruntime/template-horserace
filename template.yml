@@ -1,5 +1,5 @@
-id: horserace
-name: Horserace chart
+id: horserace-freshfields
+name: Freshfields horserace chart
 author: Flourish & Google News Lab teams
 description: A “horserace” or “bump” chart to show changing rank over time
 image_download: false
@@ -110,7 +110,86 @@ settings:
     type: color
   - property: color
     import: "@flourish/custom-colors"
-
+    overrides:
+      - property: palette
+        choices:
+        - Freshfields:
+          - "#1d2b4d"
+          - "#56c9e8"
+          - "#ff5270"
+          - "#cd8bda"
+          - "#bd336e"
+          - "#61a1bd"
+          - "#3b8abf"
+          - "#d67a99"
+          - "#306182"
+          - "#732e59"
+        - Dark Blue:
+          - "#1d2c4d"
+          - "#334060"
+          - "#4e5571"
+          - "#616c82"
+          - "#788095"
+          - "#8e95a7"
+          - "#a4aab8"
+          - "#bbbfca"
+          - "#d2d5dc"
+          - "#e9eaee"
+        - Bright Blue:
+          - "#56c9e8"
+          - "#69ceea"
+          - "#79d5ee"
+          - "#89daef"
+          - "#9adef1"
+          - "#abe5f3"
+          - "#bbe9f6"
+          - "#cdeff8"
+          - "#ddf4fa"
+          - "#effafe"
+        - Purple:
+          - "#ce8bda"
+          - "#d397df"
+          - "#d6a2e2"
+          - "#ddaee5"
+          - "#e0b9e8"
+          - "#e5c5ec"
+          - "#ead1ef"
+          - "#f0dcf5"
+          - "#f5e8f9"
+          - "#faf3fb"
+        - Coral:
+          - "#ff5270"
+          - "#ff6380"
+          - "#ff758e"
+          - "#ff869d"
+          - "#fe97aa"
+          - "#ffa8b8"
+          - "#ffbac5"
+          - "#ffccd5"
+          - "#ffdce3"
+          - "#feeef1"
+        - Green:
+          - "#00c18c"
+          - "#1ac897"
+          - "#32cda1"
+          - "#4dd3ae"
+          - "#67dab9"
+          - "#80e0c5"
+          - "#99e7d1"
+          - "#b2ecdd"
+          - "#cbf3e8"
+          - "#e4f9f2"
+        - Yellow:
+          - "#ffdb00"
+          - "#ffdf1a"
+          - "#ffe234"
+          - "#ffe64c"
+          - "#ffe967"
+          - "#ffed7f"
+          - "#fff199"
+          - "#fff4b2"
+          - "#fff8cc"
+          - "#fffbe5"
   - Line styles
   - property: line_width
     name: Line width
