@@ -1,6 +1,5 @@
 import { select, event } from "d3-selection";
-import initFooter from "@flourish/footer";
-import initHeader from "@flourish/header";
+import initLayout from "@flourish/layout";
 
 import state from "./state";
 import update from "./update";
@@ -8,8 +7,7 @@ import { replay } from "./play";
 import { initFilterControls } from "./controls";
 
 var svg, plot, g_lines, g_labels, g_start_circles, g_checks, viz_ui;
-var header = initHeader(state.header);
-var footer = initFooter(state.footer);
+var layout = initLayout(state.layout);
 
 function clearHighlighting() {
 	if (event.target) {
@@ -21,11 +19,8 @@ function clearHighlighting() {
 }
 
 function createDom() {
-	var body = select("body");
-	body.node().appendChild(header.element);
-	viz_ui = body.append("div").attr("id", "viz-ui");
-	svg = body.append("svg").on("click", clearHighlighting);
-	body.node().appendChild(footer.element);
+	viz_ui = select(layout.getSection("controls")).append("div").attr("id", "viz-ui");
+	svg = select(layout.getSection("primary")).append("svg").on("click", clearHighlighting);
 
 	plot = svg.append("g").attr("id", "plot");
 	plot.append("clipPath").attr("id", "clip").append("rect").attr("width", 0);
@@ -54,4 +49,4 @@ function createDom() {
 	initFilterControls();
 }
 
-export { createDom, svg, plot, g_lines, g_labels, g_start_circles, g_checks, viz_ui, header, footer };
+export { createDom, svg, plot, g_lines, g_labels, g_start_circles, g_checks, viz_ui, layout };

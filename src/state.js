@@ -5,7 +5,6 @@ var state = {
 	margin_bottom: 0,
 	margin_left: 5,
 
-	bg_color: "#FFFFFF",
 	color: {},
 
 	start_circle_r: 5,
@@ -79,8 +78,7 @@ var state = {
 	localization: {},
 	label_format: {},
 
-	header: {},
-	footer: {},
+	layout: {},
 
 	// x axis
 	x_axis_label_color: "#808080",
