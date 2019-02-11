@@ -3,6 +3,7 @@ name: Horserace chart
 author: Flourish & Google News Lab teams
 description: A “horserace” or “bump” chart to show changing rank over time
 sdk_version: 3
+categories: [ chart, ranking, change over time ]
 build:
   src:
     script: npm run build
