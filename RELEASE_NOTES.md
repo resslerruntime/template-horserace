@@ -1,5 +1,6 @@
 # 5.0.0 (not yet redeployed)
 * Add layout module
+* Update guide
 
 # 4.0.3
 * Fix bug where circle ranks didn't update
