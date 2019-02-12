@@ -399,13 +399,14 @@ settings:
     min: 0
     step: 100
 
+  - Number formatting
+  - property: localization
+    import: "@flourish/number-localization"
+
   - Layout
   - property: layout
     import: "@flourish/layout"
 
-  - Number formatting
-  - property: localization
-    import: "@flourish/number-localization"
 data:
   - Data
   - name: Name column
