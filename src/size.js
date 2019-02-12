@@ -7,7 +7,7 @@ import state from "./state";
 import data from "./data";
 
 import { is_mobile } from "./update_graphic";
-import { svg, plot, header, footer } from "./create_dom";
+import { svg, plot, layout } from "./create_dom";
 
 var w, h, x, y, y_max_score, y_min_score, viz_ui;
 var label_sizes = {
@@ -17,11 +17,11 @@ var label_sizes = {
 
 function updateSizesAndScales(current_position, max_rank) {
 	getLabelSizes();
-	var window_height = window.innerHeight;
 	viz_ui = viz_ui || document.getElementById("viz-ui");
-	var svg_height = window_height - header.getHeight() - footer.getHeight() - viz_ui.getBoundingClientRect().height;
+	var svg_height = layout.getPrimaryHeight();
+	var svg_width = layout.getInnerWidth();
 	var plot_margin = Math.max(state.end_circle_r + state.end_circle_stroke, state.start_circle_r, state.line_width/2, state.shade_width/2);
-	svg.attr("width", window.innerWidth).attr("height", svg_height);
+	svg.attr("width", svg_width).attr("height", svg_height);
 	var end_circle_size = state.end_circle_r + state.end_circle_stroke;
 	var margin_right = !is_mobile ? state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 30 : 20) : end_circle_size + state.margin_right_mobile;
 	var margin_bottom = plot_margin + state.margin_bottom;
@@ -30,7 +30,7 @@ function updateSizesAndScales(current_position, max_rank) {
 
 	plot.attr("transform", "translate(" + margin_left + "," + margin_top + ")");
 
-	w = Math.max(0, window.innerWidth - margin_left - margin_right);
+	w = Math.max(0, svg_width - margin_left - margin_right);
 	h = Math.max(0, svg_height - margin_top - margin_bottom);
 	x = scaleLinear().range([0, w]).domain([0, data.horserace.column_names.stages.length - 1]);
 

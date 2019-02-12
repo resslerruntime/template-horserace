@@ -3,6 +3,7 @@ name: Horserace chart
 author: Flourish & Google News Lab teams
 description: A “horserace” or “bump” chart to show changing rank over time
 sdk_version: 3
+categories: [ chart, ranking, change over time ]
 build:
   src:
     script: npm run build
@@ -52,13 +53,28 @@ settings:
 
   - Interface
   - property: show_buttons
-    name: Show ranks/scores buttons
+    name: Ranks/scores toggle
     type: boolean
+    width: half
+    style: buttons
+    choices:
+      - - Visible
+        - true
+      - - Hidden
+        - false
   - property: show_replay
-    name: Show replay button
+    name: Replay button
     type: boolean
+    width: half
+    style: buttons
+    choices:
+      - - Visible
+        - true
+      - - Hidden
+        - false
   - property: filter_control_type
     name: Filter control type
+    new_section: Filter
     type: string
     description: Only used when a filter column is specified. "Auto" creates a button group
       if there is enough space, or a dropdown if there is not.
@@ -85,6 +101,7 @@ settings:
   - property: label_ranks
     name: “Ranks” label
     type: string
+    new_section: Labels
     width: quarter
     show_if: show_buttons
   - property: label_scores
@@ -105,28 +122,55 @@ settings:
       data.horserace.filter: true
       filter_include_all: true
 
-  - Colours
-  - property: bg_color
-    name: Background colour
-    type: color
+  - property: margin_top
+    name: Top
+    type: number
+    new_section: Chart margins
+    min: 0
+    width: quarter
+  - property: margin_right
+    name: Right
+    type: number
+    step: 1
+    width: quarter
+  - property: margin_bottom
+    name: Bottom
+    type: number
+    min: 0
+    step: 1
+    width: quarter
+  - property: margin_left
+    name: Left
+    type: number
+    step: 1
+    width: quarter
+  - property: margin_right_mobile
+    name: Right (mobile)
+    type: number
+    min: 0
+    step: 1
+    width: quarter
+
+  - Colors
   - property: color
     import: "@flourish/custom-colors"
 
   - Line styles
   - property: line_width
     name: Line width
-    description: Width in pixels
+    width: quarter
     type: number
   - property: line_opacity
-    name: Line opacity
-    description: Set to a value between 0 and 1
+    name: Opacity
     type: number
+    width: quarter
     min: 0
     max: 1
     step: 0.05
   - property: curve
     name: Curve
     type: string
+    width: half
     choices:
       - - Straight
         - curveLinear
@@ -142,67 +186,107 @@ settings:
         - curveStepBefore
   - property: shade
     new_section: true
-    name: Show shading behind line
+    name: Shading behind line
     type: boolean
+    width: half
+    style: buttons
+    choices:
+      - - On
+        - true
+      - - Off
+        - false
   - property: shade_width
-    name: Shading width
+    name: Width
     description: Width in pixels
     show_if: shade
+    width: quarter
     type: number
   - property: shade_opacity
-    name: Shading opacity
+    name: Opacity
     description: Set to a value between 0 and 1
     min: 0
     max: 1
     step: 0.05
+    width: quarter
     show_if: shade
     type: number
   - property: missing
     new_section: true
-    name: Show lines between missing data points
+    name: Lines between missing data points
     type: boolean
+    width: half
+    style: buttons
+    choices:
+      - - On
+        - true
+      - - Off
+        - false
   - property: missing_opacity
-    name: Line opacity
+    name: Opacity
     min: 0
     max: 1
     step: 0.1
+    width: quarter
     show_if: missing
     type: number
   - property: missing_width
-    name: Line width
+    name: Width
     min: 0
     step: 0.5
+    width: quarter
     show_if: missing
     type: number
   - property: missing_dash_width
-    name: Line dash width
+    name: Dash width
     show_if: missing
     type: number
-    width: half
+    width: quarter
     step: 0.1
     min: 0
   - property: missing_dash_space
-    name: Line dash space
+    name: Dash space
     show_if: missing
     type: number
-    width: half
+    width: quarter
     min: 0
+
   - Circle styles
   - property: start_circle_r
     name: Start radius
     type: number
     min: 0
+    width: quarter
   - property: end_circle_r
     name: End radius
     type: number
     min: 0
+    width: quarter
   - property: end_circle_stroke
     name: End stroke
     type: number
     min: 0
+    width: quarter
   - property: end_circle_stroke_bg
-    name: Stroke color same as background
+    name: Stroke color
     type: boolean
+    width: half
+    style: buttons
+    choices:
+      - - Background
+        - true
+      - - Line
+        - false
+  - property: horse_images
+    name: Image inside circle
+    width: half
+    type: boolean
+    style: buttons
+    choices:
+      - - On
+        - true
+      - - Off
+        - false
+
   - Label styles
   - property: rank_font_size
     name: Rank font size
@@ -210,29 +294,47 @@ settings:
   - property: label_font_size
     name: Label font size
     type: number
-  - property: horse_images
-    name: Show image in circle
-    type: boolean
   - property: rank_outside_picture
-    name: Put score next to circle
+    name: Rank position
     type: boolean
+    width: half
+    style: buttons
+    choices:
+      - - Inside
+        - false
+      - - Outside
+        - true
   - property: hide_labels
-    name: Only show label on mouseover
+    name: Show label
     type: boolean
+    width: half
+    style: buttons
+    choices:
+      - - Always
+        - false
+      - - On hover
+        - true
   - property: label_format
     import: "@flourish/number-formatter"
 
   - Y axis
   - property: y_axis_label_colors
-    name: Label colour
+    name: Label color
     type: color
+    width: quarter
   - property: y_axis_label_size
-    name: Font-size
+    name: Label size
     type: number
+    width: quarter
+  - property: y_axis_stroke_color
+    name: Stroke color
+    type: color
+    width: half
   - property: y_axis_min
     name: Min score
     type: number
     optional: true
+    width: quarter
     new_section: true
     show_if:
       value_type: scores
@@ -240,11 +342,13 @@ settings:
     name: Max score
     type: number
     optional: true
+    width: quarter
     show_if:
       value_type: scores
   - property: y_axis_min_rank
     name: Min rank
     type: number
+    width: quarter
     new_section: true
     optional: true
     show_if:
@@ -252,22 +356,22 @@ settings:
   - property: y_axis_max_rank
     name: Max rank
     type: number
+    width: quarter
     optional: true
     show_if:
       value_type: ranks
-  - property: y_axis_stroke_color
-    name: Stroke colour
-    type: color
   - property: y_axis_format
     import: "@flourish/number-formatter"
 
   - X axis
   - property: x_axis_label_color
-    name: Label colour
+    name: Label color
     type: color
+    width: quarter
   - property: x_axis_label_size
-    name: Font-size
+    name: Label size
     type: number
+    width: quarter
   - property: x_axis_rotate
     name: Label rotation
     type: string
@@ -294,46 +398,15 @@ settings:
     type: number
     min: 0
     step: 100
-  - Margins
-  - property: margin_top
-    name: Top
-    type: number
-    min: 0
-    width: quarter
-  - property: margin_right
-    name: Right
-    type: number
-    step: 1
-    width: quarter
-  - property: margin_bottom
-    name: Bottom
-    type: number
-    min: 0
-    step: 1
-    width: quarter
-  - property: margin_left
-    name: Left
-    type: number
-    step: 1
-    width: quarter
-  - property: margin_right_mobile
-    name: Right (mobile)
-    type: number
-    min: 0
-    step: 1
-    width: quarter
-
-  - Header
-  - property: header
-    import: "@flourish/header"
-
-  - Footer
-  - property: footer
-    import: "@flourish/footer"
 
   - Number formatting
   - property: localization
     import: "@flourish/number-localization"
+
+  - Layout
+  - property: layout
+    import: "@flourish/layout"
+
 data:
   - Data
   - name: Name column

@@ -1,3 +1,6 @@
+# 5.0.0 (not yet redeployed)
+* Add layout module
+
 # 4.0.3
 * Fix bug where circle ranks didn't update
 * Fix bug where x axis label colors didn't update

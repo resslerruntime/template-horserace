@@ -9,7 +9,7 @@ import data from "./data";
 import update from "./update";
 
 import { getProcessedData, localization } from "./process_data";
-import { plot, g_lines, g_labels, g_start_circles, g_checks, header, footer } from "./create_dom";
+import { plot, g_lines, g_labels, g_start_circles, g_checks, layout } from "./create_dom";
 import { updateSizesAndScales, w, h, x, y } from "./size";
 import { updateAxes } from "./axis";
 import { updateColors, color } from "./colors";
@@ -170,7 +170,7 @@ function updateChecks() {
 		.attr("x", 0)
 		.attr("y", 0)
 		.attr("height", h + check_margin)
-		.attr("fill", state.bg_color)
+		.attr("fill", state.layout.background_color)
 		.attr("width", check_width);
 
 	checks_update.select("line")
@@ -242,9 +242,9 @@ function updateLabels(horses, duration) {
 		})
 		.attr("opacity", horseOpacity)
 		.attr("stroke-width", end_circle_stroke)
-		.attr("stroke", state.end_circle_stroke_bg ? state.bg_color : color);
-	labels_update.select(".bg.circle").attr("r", end_circle_r).attr("fill", state.bg_color);
-	labels_update.select(".name-bg").attr("stroke", state.bg_color);
+		.attr("stroke", state.end_circle_stroke_bg ? state.layout.background_color : color);
+	labels_update.select(".bg.circle").attr("r", end_circle_r).attr("fill", state.layout.background_color);
+	labels_update.select(".name-bg").attr("stroke", state.layout.background_color);
 
 	if (state.horse_images) {
 		var pic_w = end_circle_r * 2 - (end_circle_stroke/2);
@@ -399,7 +399,6 @@ function getTargetPosition() {
 }
 
 function updateUI() {
-	select("body").style("background-color", state.bg_color);
 	select("#viz-ui").style("margin-top", !state.show_buttons && !state.show_replay ? 0 : null);
 	select("#rank-toggle")
 		.style("display", state.show_buttons ? null : "none")
@@ -410,8 +409,6 @@ function updateUI() {
 	select("#ranks").text(state.label_ranks);
 	select("#scores").text(state.label_scores);
 	select("#replay").style("display", state.show_replay ? null : "none").text(state.label_replay);
-	header.update();
-	footer.update();
 }
 
 function updateLineStyle() {
@@ -423,6 +420,7 @@ function updateGraphic(duration) {
 	updateNumberFormatter();
 	updateUI();
 	updateFilterControls();
+	layout.update();
 	var horses = getProcessedData();
 	selected_horses = state.selected_horse ? state.selected_horse.split(",") : [];
 	updateSizesAndScales(current_position, horses.max_rank);

@@ -1,6 +1,6 @@
 {
   "name": "template-horserace",
-  "version": "4.0.3",
+  "version": "5.0.0",
   "description": "A “horserace” or “bump” chart to show changing rank over time",
   "main": "template.js",
   "author": "Flourish and Google News Lab teams",
@@ -20,8 +20,7 @@
   "dependencies": {
     "@flourish/controls": "^0.4.2",
     "@flourish/custom-colors": "^2.0.0",
-    "@flourish/footer": "^1.0.0",
-    "@flourish/header": "^1.0.0",
+    "@flourish/layout": "^1.0.2",
     "@flourish/number-formatter": "0.0.1",
     "@flourish/number-localization": "0.0.1",
     "ajv": "^6.5.3",
