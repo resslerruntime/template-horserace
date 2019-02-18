@@ -43,7 +43,6 @@ function tieBreak() {
 							return -end_circle_r*1.5 - text_width;
 						}
 					});
-				labels[i].dataset.shift = shift;
 			}
 		}
 	}
