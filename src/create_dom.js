@@ -29,7 +29,7 @@ function createDom() {
 	plot.append("g").attr("class", "x axis").style("pointer-events", "none");
 	plot.append("g").attr("class", "y axis").style("pointer-events", "none");
 
-	g_lines = plot.append("g").attr("class", "g-lines");
+	g_lines = plot.append("g").attr("class", "g-lines").attr("clip-path", "url(#clip)");
 	g_start_circles = plot.append("g").attr("class", "g-start-circles");
 	g_labels = plot.append("g").attr("class", "g-labels");
 	var horse_controls = viz_ui.append("div").attr("id", "horse-controls");
