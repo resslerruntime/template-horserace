@@ -23,13 +23,12 @@ function updateSizesAndScales(current_position, max_rank) {
 	var plot_margin = Math.max(state.end_circle_r + state.end_circle_stroke, state.start_circle_r, state.line_width/2, state.shade_width/2);
 	svg.attr("width", svg_width).attr("height", svg_height);
 	var end_circle_size = state.end_circle_r + state.end_circle_stroke;
-	var margin_right = !is_mobile ? state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 30 : 20) : end_circle_size + state.margin_right_mobile;
+	var margin_right = !is_mobile ? state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 15 : 0) + end_circle_size : end_circle_size + state.margin_right_mobile;
 	var margin_bottom = plot_margin + state.margin_bottom;
 	var margin_top = plot_margin + label_sizes.x.height + state.margin_top;
 	var margin_left = Math.max(plot_margin, 5) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
 
 	plot.attr("transform", "translate(" + margin_left + "," + margin_top + ")");
-
 	w = Math.max(0, svg_width - margin_left - margin_right);
 	h = Math.max(0, svg_height - margin_top - margin_bottom);
 	x = scaleLinear().range([0, w]).domain([0, data.horserace.column_names.stages.length - 1]);
@@ -68,7 +67,7 @@ function getLabelSizes() {
 			label_sizes.line.size = d.name.length;
 		}
 	});
-	label_sizes.line.el = svg.append("text").html(label_sizes.line.text)
+	label_sizes.line.el = svg.append("text").text(label_sizes.line.text)
 		.style("font-size", state.label_font_size + "px");
 	label_sizes.line.width = label_sizes.line.el.node().getBoundingClientRect().width;
 	label_sizes.line.el.remove();
@@ -82,7 +81,7 @@ function getLabelSizes() {
 		}
 	});
 	label_sizes.x.el = svg.append("text")
-		.html(label_sizes.x.text)
+		.text(label_sizes.x.text)
 		.style("font-size", state.x_axis_label_size + "px")
 		.attr("transform", function() {
 			if (state.x_axis_rotate == "tilted") return "rotate(-45)";
