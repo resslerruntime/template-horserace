@@ -1,6 +1,8 @@
 # 5.0.0 (not yet redeployed)
 * Add layout module
 * Update guide
+* Improve label length calculation
+* Fix IE and Edge bugs
 
 # 4.0.3
 * Fix bug where circle ranks didn't update
