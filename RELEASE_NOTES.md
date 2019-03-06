@@ -1,4 +1,4 @@
-# 5.0.0 (not yet redeployed)
+# 5.0.0
 * Add layout module
 * Update guide
 
