@@ -170,7 +170,8 @@ function updateChecks() {
 		.attr("x", 0)
 		.attr("y", 0)
 		.attr("height", h + check_margin)
-		.attr("fill", state.layout.background_color)
+		.attr("fill", "none")
+		.style("pointer-events", "all")
 		.attr("width", check_width);
 
 	checks_update.select("line")
