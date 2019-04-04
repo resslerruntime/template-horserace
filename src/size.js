@@ -34,7 +34,7 @@ function updateSizesAndScales(current_position, max_rank) {
 	var margin_top = max_horse_height/2 + label_sizes.x.height + state.margin_top;
 	var margin_left = Math.max(max_horse_height/2, 5) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
 
-	var num_of_horses = data.horserace.length;
+	var num_of_horses = state.y_axis_max_rank != null ? state.y_axis_max_rank : data.horserace.length;
 	var gap_between = max_horse_height * 0.1;
 	var plot_height = (num_of_horses * max_horse_height) + (num_of_horses - 1) * gap_between;
 
