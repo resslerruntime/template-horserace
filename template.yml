@@ -55,7 +55,7 @@ settings:
     name: Height mode
     type: string
     description: >-
-      In "Fill space" mode, the lines will be spread out over the available chart height, which by default will be the standard Flourish chart sizes for any given screen width. In this mode the circles/images might overlap if you have lots of lines. "Resize" mode will resize the embedded graphic so there is enough vertical space to avoid overlaps. (Note this won't have any effect if you embed the graphic as a fixed height.) "Auto" switches between the two modes depending on the number of lines.
+      In "Fill space" mode, the lines will be spread out over the available chart height, which by default will be the standard Flourish chart sizes for any given screen width. In this mode the circles/images might overlap if you have lots of lines. "Match data" mode will resize the embedded graphic so there is enough vertical space to avoid overlaps. (Note this won't have any effect if you embed the graphic as a fixed height.) "Auto" switches between the two modes depending on the number of lines.
     style: buttons
     choices:
       - - Auto
