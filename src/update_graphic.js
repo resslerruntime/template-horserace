@@ -136,7 +136,7 @@ function transformLabel(d) {
 }
 
 function updateChecks() {
-	var check_width = x(1);
+	var check_width = state.zoom_enabled ? x(Math.max(current_position - state.zoom_steps_to_show + 1, 1)) : x(1);
 	var check_margin = 60;
 	var check_inner_margin = check_margin - 20;
 	var checks = g_checks.selectAll(".check").data(data.horserace.column_names.stages);
@@ -286,7 +286,7 @@ function updateLabels(duration) {
 
 	labels_update.selectAll(".name-fg, .name-bg").attr("font-size", label_font_size)
 		.attr("x", function() {
-			if (!is_mobile) return end_circle_r + 4;
+			if (!is_mobile || state.zoom_enabled) return end_circle_r + 4;
 			else {
 				var text_width = this.getBBox().width;
 				return -end_circle_r - 4 - text_width;

@@ -29,7 +29,15 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 	line_width = !is_mobile ? state.line_width : Math.max(Math.round(state.line_width/2), 1);
 	max_horse_height = Math.max(end_circle_r * 2, start_circle_r * 2, line_width, shade_width);
 
-	var margin_right = !is_mobile ? state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 15 : 0) + end_circle_r : end_circle_r + state.margin_right_mobile;
+	var margin_right;
+	if (state.zoom_enabled) {
+		margin_right = is_mobile ? state.margin_right_mobile : state.margin_right;
+	}
+	else if (is_mobile) {
+		margin_right = end_circle_r + state.margin_right_mobile;
+	}
+	else margin_right = state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 15 : 0) + end_circle_r;
+
 	var margin_bottom = max_horse_height/2 + state.margin_bottom;
 	var margin_top = max_horse_height/2 + label_sizes.x.height + state.margin_top;
 	var margin_left = Math.max(max_horse_height/2, 5) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
@@ -69,8 +77,9 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 	}
 	y = scaleLinear().range([h, 0]).domain(y_domain);
 
-	var x_offset = Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
+	var x_offset = state.zoom_enabled ? 0 : Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
 	select("#clip rect")
+		.transition().duration(duration)
 		.attr("transform", "translate(0,-" + margin_top + ")")
 		.attr("height", h + margin_top + margin_bottom)
 		.attr("width", x(current_position) + x_offset)

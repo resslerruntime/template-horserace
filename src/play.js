@@ -38,7 +38,7 @@ function tieBreak() {
 
 				select(labels[i]).selectAll(".name-bg, .name-fg")
 					.attr("x", function() {
-						if (!is_mobile) return (labels.length) * (end_circle_r * 0.5) + (end_circle_r/2);
+						if (!is_mobile || state.zoom_enabled) return (labels.length) * (end_circle_r * 0.5) + (end_circle_r/2);
 						else {
 							var text_width = this.getBBox().width;
 							return -end_circle_r*1.5 - text_width;
@@ -103,7 +103,7 @@ function frame(t) {
 		})
 		.each(function() {
 			select(this.parentNode).attr("x", function() {
-				if (!is_mobile) return end_circle_r + 4;
+				if (!is_mobile || state.zoom_enabled) return end_circle_r + 4;
 				else {
 					var text_width = this.getBBox().width;
 					return -end_circle_r - 4 - text_width;
