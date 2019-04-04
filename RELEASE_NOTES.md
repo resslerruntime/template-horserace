@@ -1,3 +1,6 @@
+# 5.1.0
+* Add setting for height mode
+
 # 5.0.0
 * Add layout module
 * Update guide
