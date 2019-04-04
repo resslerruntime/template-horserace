@@ -1,3 +1,6 @@
+# 5.1.1
+* Include max rank when using data for chart height
+
 # 5.1.0
 * Add setting for height mode
 
