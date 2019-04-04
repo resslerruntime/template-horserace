@@ -55,10 +55,10 @@ var state = {
 
 	// y axis
 
-	y_axis_min: "",
-	y_axis_max: "",
-	y_axis_min_rank: "",
-	y_axis_max_rank: "",
+	y_axis_min: null,
+	y_axis_max: null,
+	y_axis_min_rank: null,
+	y_axis_max_rank: null,
 	y_axis_label_colors: "#808080",
 	y_axis_label_size: 11,
 	y_axis_stroke_color: "#e0e1e1",
