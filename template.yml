@@ -64,7 +64,20 @@ settings:
         - fixed
       - - Match data
         - flexible
-
+  - property: zoom_enabled
+    name: View
+    type: boolean
+    style: buttons
+    choices:
+      - - Wide
+        - false
+      - - Zoom
+        - true
+  - property: zoom_steps_to_show
+    name: Steps
+    type: number
+    min: 1
+    max: 20
   - property: margin_top
     name: Top
     type: number

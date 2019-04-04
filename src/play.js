@@ -4,8 +4,9 @@ import { ascending } from "d3-array";
 import state from "./state";
 import data from "./data";
 
-import { x, end_circle_r } from "./size";
-import { getTargetPosition, transformLabel, displayValue, labels_update, is_mobile } from "./update_graphic";
+import { x, y, w, updateXDomain, end_circle_r } from "./size";
+import { updateAxes } from "./axis";
+import { getTargetPosition, updateChecks, updateLines, updateStartCircles, transformLabel, displayValue, labels_update, is_mobile } from "./update_graphic";
 
 var current_position = 0;
 
@@ -75,7 +76,8 @@ function frame(t) {
 	}
 	if (reached_target) current_position = target_position;
 
-	var x_offset = Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
+	updateXDomain(current_position);
+	var x_offset = state.zoom_enabled ? 0 : Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
 	select("#clip rect")
 		.attr("width", x(current_position) + x_offset)
 		.attr("x", -x_offset);
@@ -86,6 +88,14 @@ function frame(t) {
 		.text(function(d) {
 			return state.rank_outside_picture ? "" : displayValue(d) + " ";
 		});
+
+	if (state.zoom_enabled) {
+		updateChecks();
+		updateLines(0);
+		updateStartCircles(0);
+		var axis_width = Math.min(x(data.horserace.column_names.stages.length - 1), w);
+		updateAxes(x, y, axis_width, 0);
+	}
 
 	labels_update.selectAll(".name-rank")
 		.text(function(d) {

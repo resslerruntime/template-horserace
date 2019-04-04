@@ -16,7 +16,7 @@ var label_sizes = {
 	line: {}
 };
 
-function updateSizesAndScales(current_position, max_rank) {
+function updateSizesAndScales(current_position, max_rank, duration) {
 	getLabelSizes();
 	viz_ui = viz_ui || document.getElementById("viz-ui");
 
@@ -52,7 +52,9 @@ function updateSizesAndScales(current_position, max_rank) {
 	plot.attr("transform", "translate(" + margin_left + "," + margin_top + ")");
 	w = Math.max(0, svg_width - margin_left - margin_right);
 	h = Math.max(0, svg_height - margin_top - margin_bottom);
-	x = scaleLinear().range([0, w]).domain([0, data.horserace.column_names.stages.length - 1]);
+	x = scaleLinear().range([0, w]);
+
+	updateXDomain(current_position);
 
 	var y_domain;
 	if (state.value_type == "ranks") y_domain = [state.y_axis_max_rank || max_rank, state.y_axis_min_rank || 1];
@@ -73,6 +75,16 @@ function updateSizesAndScales(current_position, max_rank) {
 		.attr("height", h + margin_top + margin_bottom)
 		.attr("width", x(current_position) + x_offset)
 		.attr("x", -x_offset);
+}
+
+function updateXDomain(current_position) {
+	var max_domain = !state.zoom_enabled ? data.horserace.column_names.stages.length - 1 : Math.max(
+		current_position + state.zoom_steps_to_show,
+		state.zoom_steps_to_show * 2
+	);
+	var min_domain = !state.zoom_enabled ? 0 : Math.max(0, current_position - state.zoom_steps_to_show);
+	var domain = [min_domain, max_domain];
+	x.domain(domain);
 }
 
 function getLabelSizes() {
@@ -113,4 +125,4 @@ function getLabelSizes() {
 	label_sizes.x.el.remove();
 }
 
-export { updateSizesAndScales, w, h, x, y, start_circle_r, end_circle_r, shade_width, line_width, max_horse_height };
+export { updateSizesAndScales, updateXDomain, w, h, x, y, start_circle_r, end_circle_r, shade_width, line_width, max_horse_height };
