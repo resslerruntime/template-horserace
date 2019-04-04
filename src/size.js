@@ -9,6 +9,7 @@ import data from "./data";
 import { is_mobile } from "./update_graphic";
 import { svg, plot, layout } from "./create_dom";
 
+var end_circle_r, start_circle_r, line_width, shade_width, max_horse_height;
 var w, h, x, y, y_max_score, y_min_score, viz_ui;
 var label_sizes = {
 	x_axis: {},
@@ -18,15 +19,35 @@ var label_sizes = {
 function updateSizesAndScales(current_position, max_rank) {
 	getLabelSizes();
 	viz_ui = viz_ui || document.getElementById("viz-ui");
-	var svg_height = layout.getPrimaryHeight();
+
+	var svg_height;
 	var svg_width = layout.getInnerWidth();
-	var plot_margin = Math.max(state.end_circle_r + state.end_circle_stroke, state.start_circle_r, state.line_width/2, state.shade_width/2);
+
+	start_circle_r = !is_mobile ? state.start_circle_r : Math.min(state.start_circle_r, 28) / 2;
+	end_circle_r = !is_mobile ? state.end_circle_r : Math.min(state.end_circle_r, 28) / 2;
+	shade_width = !is_mobile ? state.shade_width : Math.max(Math.round(state.shade_width/2), 1);
+	line_width = !is_mobile ? state.line_width : Math.max(Math.round(state.line_width/2), 1);
+	max_horse_height = Math.max(end_circle_r * 2, start_circle_r * 2, line_width, shade_width);
+
+	var margin_right = !is_mobile ? state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 15 : 0) + end_circle_r : end_circle_r + state.margin_right_mobile;
+	var margin_bottom = max_horse_height/2 + state.margin_bottom;
+	var margin_top = max_horse_height/2 + label_sizes.x.height + state.margin_top;
+	var margin_left = Math.max(max_horse_height/2, 5) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
+
+	var num_of_horses = data.horserace.length;
+	var gap_between = max_horse_height * 0.1;
+	var plot_height = (num_of_horses * max_horse_height) + (num_of_horses - 1) * gap_between;
+
+	if (state.height_mode == "flexible" || (state.height_mode == "auto" && plot_height > layout.getDefaultPrimaryHeight())) {
+		svg_height = plot_height + (margin_top + margin_bottom - max_horse_height);
+		layout.setHeight(svg_height);
+	}
+	else {
+		layout.setHeight(null);
+		svg_height = layout.getPrimaryHeight();
+	}
+
 	svg.attr("width", svg_width).attr("height", svg_height);
-	var end_circle_size = state.end_circle_r + state.end_circle_stroke;
-	var margin_right = !is_mobile ? state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 15 : 0) + end_circle_size : end_circle_size + state.margin_right_mobile;
-	var margin_bottom = plot_margin + state.margin_bottom;
-	var margin_top = plot_margin + label_sizes.x.height + state.margin_top;
-	var margin_left = Math.max(plot_margin, 5) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
 
 	plot.attr("transform", "translate(" + margin_left + "," + margin_top + ")");
 	w = Math.max(0, svg_width - margin_left - margin_right);
@@ -71,7 +92,6 @@ function getLabelSizes() {
 		.style("font-size", state.label_font_size + "px");
 	label_sizes.line.width = label_sizes.line.el.node().getBoundingClientRect().width;
 	label_sizes.line.el.remove();
-	// console.log(label_sizes.line.el.node())
 
 	// Get longest x axis label
 	data.horserace.column_names.stages.forEach(function(name) {
@@ -93,4 +113,4 @@ function getLabelSizes() {
 	label_sizes.x.el.remove();
 }
 
-export { updateSizesAndScales, w, h, x, y };
+export { updateSizesAndScales, w, h, x, y, start_circle_r, end_circle_r, shade_width, line_width, max_horse_height };

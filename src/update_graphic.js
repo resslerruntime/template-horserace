@@ -10,7 +10,7 @@ import update from "./update";
 
 import { getProcessedData, localization } from "./process_data";
 import { plot, g_lines, g_labels, g_start_circles, g_checks, layout } from "./create_dom";
-import { updateSizesAndScales, w, h, x, y } from "./size";
+import { updateSizesAndScales, w, h, x, y, start_circle_r, end_circle_r, shade_width, line_width } from "./size";
 import { updateAxes } from "./axis";
 import { updateColors, color } from "./colors";
 import { updateFilterControls } from "./controls";
@@ -19,7 +19,6 @@ import { play, tieBreak, current_position, updateCurrentPosition } from "./play"
 var is_mobile;
 var selected_check = null;
 var selected_horses = [];
-var end_circle_r;
 var line = shape.line()
 	.x(function(d) { return x(d.i); })
 	.y(function(d) { return y(d.value); })
@@ -61,14 +60,14 @@ function updateLines(horses, duration) {
 		.transition().duration(duration)
 		.attr("d", function(d) { return line(d.line); })
 		.attr("opacity", state.line_opacity)
-		.attr("stroke-width", !is_mobile ? state.line_width : Math.max(Math.round(state.line_width/2), 2));
+		.attr("stroke-width", line_width);
 	lines_update
 		.select(".shade")
 		.transition().duration(duration)
 		.attr("d", function(d) { return line(d.line); })
 		.attr("display", state.shade ? "block" : "none")
 		.attr("opacity", state.shade_opacity)
-		.attr("stroke-width", !is_mobile ? state.shade_width : Math.max(Math.round(state.shade_width/2), 2));
+		.attr("stroke-width", shade_width);
 	lines_update
 		.select(".missing")
 		.transition().duration(duration)
@@ -91,7 +90,7 @@ function updateStartCircles(horses, duration) {
 		.transition().duration(duration)
 		.attr("cy", function(d) { return y(d.start_circle.value); })
 		.attr("cx", function(d) { return x(d.start_circle.i); })
-		.attr("r", state.start_circle_r)
+		.attr("r", start_circle_r)
 		.attr("fill", function(d) {
 			return color.find(d.name);
 		});
@@ -201,8 +200,7 @@ function updateLabels(horses, duration) {
 		.on("mouseenter", mouseover).on("mouseleave", mouseout).on("click", clickHorse)
 		.attr("transform", transformLabel);
 
-	end_circle_r = !is_mobile ? state.end_circle_r : Math.min(state.end_circle_r, 14);
-	var end_circle_stroke = !is_mobile ? state.end_circle_stroke : Math.min(state.end_circle_stroke, 2);
+	var end_circle_stroke = !is_mobile ? state.end_circle_stroke : state.end_circle_stroke/2;
 	var end_circle = labels_enter.append("g").attr("class", "end-circle-container");
 	end_circle.append("circle").attr("class", "circle bg");
 	end_circle.append("circle").attr("class", "end circle");
@@ -433,4 +431,4 @@ function updateGraphic(duration) {
 	else tieBreak();
 }
 
-export { updateGraphic, getTargetPosition, transformLabel, displayValue, labels_update, end_circle_r, is_mobile };
+export { updateGraphic, getTargetPosition, transformLabel, displayValue, labels_update, is_mobile };

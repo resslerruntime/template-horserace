@@ -4,8 +4,8 @@ import { ascending } from "d3-array";
 import state from "./state";
 import data from "./data";
 
-import { x } from "./size";
-import { getTargetPosition, transformLabel, displayValue, labels_update, end_circle_r, is_mobile } from "./update_graphic";
+import { x, end_circle_r } from "./size";
+import { getTargetPosition, transformLabel, displayValue, labels_update, is_mobile } from "./update_graphic";
 
 var current_position = 0;
 

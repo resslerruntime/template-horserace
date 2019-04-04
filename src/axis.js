@@ -3,7 +3,7 @@ import { axisLeft, axisTop } from "d3-axis";
 import initFormatter from "@flourish/number-formatter";
 import { localization } from "./process_data";
 
-import { w } from "./size";
+import { w, max_horse_height } from "./size";
 import state from "./state";
 import data from "./data";
 
@@ -16,7 +16,7 @@ function updateXAxis(x) {
 
 	var min_space = state.x_axis_rotate == "tilted" ? 30 : (state.x_axis_rotate == "vertical" ? state.x_axis_label_size : 80);
 	var max_ticks = Math.floor(w / min_space);
-	var plot_margin_top = Math.max(state.end_circle_r + state.end_circle_stroke, state.start_circle_r, state.line_width/2, state.shade_width/2);
+	var plot_margin_top = max_horse_height / 2;
 
 	select(".x.axis").call(xAxis);
 
