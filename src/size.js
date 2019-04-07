@@ -97,8 +97,8 @@ function updateYDomain(current_position) {
 			    to_min = horses.timeslices[to].min_score, to_max = horses.timeslices[to].max_score;
 			y_min = from_min + ((to_min - from_min) * (current_position - from));
 			y_max = from_max + ((to_max - from_max) * (current_position - from));
-			var diff = y_max - y_min;
-			y_min -= diff * 0.2; y_max += diff * 0.2;
+			var diff = y_max - y_min, padding = state.zoom_y_padding/100;
+			y_min -= diff * padding; y_max += diff * padding;
 		}
 		else {
 			y_min = min(data.horserace, function(d) { return min(d.stages, function(v) { return parser(v); }); });

@@ -14,6 +14,16 @@ build:
     script: npm run less
     directory: less
 settings:
+  - property: zoom_enabled
+    name: Play mode
+    type: boolean
+    style: buttons
+    choices:
+      - - Zoomed
+        - true
+      - - Show all
+        - false
+
   - Scoring type
   - property: value_type
     name: Chart mode to show on load
@@ -64,23 +74,11 @@ settings:
         - fixed
       - - Match data
         - flexible
-  - property: zoom_enabled
-    name: View
-    type: boolean
-    style: buttons
-    choices:
-      - - Wide
-        - false
-      - - Zoom
-        - true
   - property: zoom_steps_to_show
     name: Steps
     type: number
     min: 1
     max: 20
-  - property: zoom_y_axis
-    name: Update Y axis when playing
-    type: boolean
   - property: margin_top
     name: Top
     type: number
@@ -360,21 +358,31 @@ settings:
     name: Stroke color
     type: color
     width: half
+  - property: zoom_y_axis
+    type: boolean
+    name: Zoom Y axis when playing
+    new_section: Zooming
+    show_if: zoom_enabled
+  - property: zoom_y_padding
+    type: number
+    name: Padding (%)
+    description: The amount of the axis to leave blank above/below the lines
+    min: 0
+    max: 100
+    show_if:
+      zoom_enabled: true
+      zoom_y_axis: true
   - property: y_axis_min
     name: Min score
     type: number
     optional: true
     width: quarter
     new_section: true
-    show_if:
-      value_type: scores
   - property: y_axis_max
     name: Max score
     type: number
     optional: true
     width: quarter
-    show_if:
-      value_type: scores
   - property: y_axis_min_rank
     name: Min rank
     type: number

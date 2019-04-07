@@ -9,6 +9,7 @@ var state = {
 	zoom_enabled: true,
 	zoom_steps_to_show: 3,
 	zoom_y_axis: true,
+	zoom_y_padding: 20,
 
 	color: {},
 
