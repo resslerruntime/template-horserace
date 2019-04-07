@@ -11,7 +11,7 @@ export default {
 	},
 	plugins: [
 		nodeResolve({ jsnext: true }),
-		uglify()
+		// uglify()
 	],
 	onwarn: function (warning, warn) {
 			if (warning.code === "CIRCULAR_DEPENDENCY") return;

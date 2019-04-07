@@ -4,7 +4,7 @@ import { ascending } from "d3-array";
 import state from "./state";
 import data from "./data";
 
-import { x, y, w, updateXDomain, end_circle_r } from "./size";
+import { x, y, w, updateXDomain, updateYDomain, end_circle_r } from "./size";
 import { updateAxes } from "./axis";
 import { getTargetPosition, updateChecks, updateLines, updateStartCircles, transformLabel, displayValue, labels_update, is_mobile } from "./update_graphic";
 
@@ -77,6 +77,8 @@ function frame(t) {
 	if (reached_target) current_position = target_position;
 
 	updateXDomain(current_position);
+	updateYDomain(current_position);
+
 	var x_offset = state.zoom_enabled ? 0 : Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
 	select("#clip rect")
 		.attr("width", x(current_position) + x_offset)

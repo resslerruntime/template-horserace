@@ -6,11 +6,11 @@ import { parser } from "./process_data";
 import state from "./state";
 import data from "./data";
 
-import { is_mobile } from "./update_graphic";
+import { is_mobile, horses } from "./update_graphic";
 import { svg, plot, layout } from "./create_dom";
 
 var end_circle_r, start_circle_r, line_width, shade_width, max_horse_height;
-var w, h, x, y, y_max_score, y_min_score, viz_ui;
+var w, h, x, y, viz_ui;
 var label_sizes = {
 	x_axis: {},
 	line: {}
@@ -65,18 +65,8 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 
 	updateXDomain(current_position);
 
-	var y_domain;
-	if (state.value_type == "ranks") y_domain = [state.y_axis_max_rank || max_rank, state.y_axis_min_rank || 1];
-	else {
-		y_max_score = max(data.horserace, function(d) { return max(d.stages, function(v) { return parser(v); }); }),
-		y_min_score = min(data.horserace, function(d) { return min(d.stages, function(v) { return parser(v); }); });
-
-		if (state.y_axis_min !== "" && state.y_axis_min !== null) y_min_score = state.y_axis_min;
-		if (state.y_axis_max !== "" && state.y_axis_max !== null) y_max_score = state.y_axis_max;
-		if (state.higher_scores_win) y_domain = [y_min_score, y_max_score];
-		else y_domain = [y_max_score, y_min_score];
-	}
-	y = scaleLinear().range([h, 0]).domain(y_domain);
+	y = scaleLinear().range([h, 0]);
+	updateYDomain(current_position);
 
 	var x_offset = state.zoom_enabled ? 0 : Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
 	select("#clip rect")
@@ -95,6 +85,31 @@ function updateXDomain(current_position) {
 	var min_domain = !state.zoom_enabled ? 0 : Math.max(0, current_position - state.zoom_steps_to_show);
 	var domain = [min_domain, max_domain];
 	x.domain(domain);
+}
+
+function updateYDomain(current_position) {
+	var domain, y_min, y_max;
+	if (state.value_type == "ranks") domain = [state.y_axis_max_rank || horses.max_rank, state.y_axis_min_rank || 1];
+	else {
+		if (state.zoom_enabled && state.zoom_y_axis) {
+			var from = Math.floor(current_position), to = Math.ceil(current_position),
+			    from_min = horses.timeslices[from].min_score, from_max = horses.timeslices[from].max_score,
+			    to_min = horses.timeslices[to].min_score, to_max = horses.timeslices[to].max_score;
+			y_min = from_min + ((to_min - from_min) * (current_position - from));
+			y_max = from_max + ((to_max - from_max) * (current_position - from));
+			var diff = y_max - y_min;
+			y_min -= diff * 0.2; y_max += diff * 0.2;
+		}
+		else {
+			y_min = min(data.horserace, function(d) { return min(d.stages, function(v) { return parser(v); }); });
+			y_max = max(data.horserace, function(d) { return max(d.stages, function(v) { return parser(v); }); });
+		}
+		if (state.y_axis_min !== "" && state.y_axis_min !== null) y_min = state.y_axis_min;
+		if (state.y_axis_max !== "" && state.y_axis_max !== null) y_max = state.y_axis_max;
+		if (state.higher_scores_win) domain = [y_min, y_max];
+		else domain = [y_max, y_min];
+	}
+	y.domain(domain);
 }
 
 function getLabelSizes() {
@@ -135,4 +150,4 @@ function getLabelSizes() {
 	label_sizes.x.el.remove();
 }
 
-export { updateSizesAndScales, updateXDomain, w, h, x, y, start_circle_r, end_circle_r, shade_width, line_width, max_horse_height };
+export { updateSizesAndScales, updateXDomain, updateYDomain, w, h, x, y, start_circle_r, end_circle_r, shade_width, line_width, max_horse_height };

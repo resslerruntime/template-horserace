@@ -8,6 +8,7 @@ var state = {
 
 	zoom_enabled: true,
 	zoom_steps_to_show: 3,
+	zoom_y_axis: true,
 
 	color: {},
 
@@ -35,7 +36,7 @@ var state = {
 	missing_dash_space: 4,
 	missing_width: 1.5,
 
-	stage_duration: 500,
+	stage_duration: 1500,
 	update_duration: 500,
 
 	label_ranks: "Ranks",

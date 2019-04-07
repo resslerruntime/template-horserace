@@ -1,6 +1,6 @@
-id: horserace
-name: Horserace chart
-author: Flourish & Google News Lab teams
+id: line-chart-race
+name: Line chart race
+author: Flourish teams
 description: A “horserace” or “bump” chart to show changing rank over time
 sdk_version: 3
 categories: [ chart, ranking, change over time ]
@@ -78,6 +78,9 @@ settings:
     type: number
     min: 1
     max: 20
+  - property: zoom_y_axis
+    name: Update Y axis when playing
+    type: boolean
   - property: margin_top
     name: Top
     type: number

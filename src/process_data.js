@@ -1,4 +1,4 @@
-import { ascending, descending } from "d3-array";
+import { ascending, descending, extent } from "d3-array";
 import initLocalization from "@flourish/number-localization";
 
 import data from "./data";
@@ -7,7 +7,6 @@ import state from "./state";
 var localization = initLocalization(state.localization);
 var parser;
 var max_rank;
-
 
 function addCompetitionRanks(data) {
 	var prev_score = undefined, prev_rank = 0, ties = 0;
@@ -27,7 +26,6 @@ function addCompetitionRanks(data) {
 	});
 }
 
-
 function addDenseRanks(data) {
 	var prev_score = undefined, prev_rank = 0;
 
@@ -40,7 +38,6 @@ function addDenseRanks(data) {
 	});
 }
 
-
 function getProcessedData() {
 	parser = localization.getParser();
 	var timeslices = [];
@@ -52,6 +49,7 @@ function getProcessedData() {
 	if (state.filter === null || state.filter === state.filter_all_label) filtered_horses = data.horserace;
 	else filtered_horses = data.horserace.filter(function(d) { return d.filter === state.filter; });
 
+	var min_score = Infinity, max_score = -Infinity;
 	data.horserace.column_names.stages.forEach(function(stage, stage_index) {
 		var timeslice = [];
 
@@ -83,7 +81,13 @@ function getProcessedData() {
 			timeslice_by_horse_index[horse.index] = horse;
 		});
 		timeslices.push(timeslice_by_horse_index);
+
+
+		var timeslice_extent = extent(timeslice.map(function(d) { return d.score; }));
+		timeslices[stage_index].min_score = Math.min(min_score, timeslice_extent[0]);
+		timeslices[stage_index].max_score = Math.max(max_score, timeslice_extent[1]);
 	});
+
 	var horses = filtered_horses.map(function(horse, horse_index) {
 		var missing_value = null;
 		horse.ranks = horse.stages.map(function(stage, stage_index) {
@@ -122,6 +126,7 @@ function getProcessedData() {
 		return d.start_circle;
 	});
 	horses.max_rank = max_rank;
+	horses.timeslices = timeslices;
 	return horses;
 }
 
