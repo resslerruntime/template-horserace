@@ -79,16 +79,18 @@ function frame(t) {
 	updateXDomain(current_position);
 	updateYDomain(current_position);
 
+	var direction = reached_target ? null : (target_is_ahead ? "ahead" : "behind");
 	var x_offset = state.zoom_enabled ? 0 : Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
 	select("#clip rect")
 		.attr("width", x(current_position) + x_offset)
 		.attr("x", -x_offset);
+
 	labels_update
 		.interrupt()
 		.attr("transform", transformLabel)
 		.selectAll(".rank-number")
 		.text(function(d) {
-			return state.rank_outside_picture ? "" : displayValue(d) + " ";
+			return state.rank_outside_picture ? "" : displayValue(d, direction) + " ";
 		});
 
 	if (state.zoom_enabled) {
@@ -101,7 +103,7 @@ function frame(t) {
 
 	labels_update.selectAll(".name-rank")
 		.text(function(d) {
-			return state.rank_outside_picture ? displayValue(d) + " " : "";
+			return state.rank_outside_picture ? displayValue(d, direction) + " " : "";
 		})
 		.each(function() {
 			select(this.parentNode).attr("x", function() {

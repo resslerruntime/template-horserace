@@ -98,8 +98,11 @@ function updateStartCircles(duration) {
 	start_circles.exit().remove();
 }
 
-function displayValue(d) {
-	var val = d.line[Math.floor(current_position)].value || d.line[lastValidStage(d)].value;
+function displayValue(d, direction) {
+	var line_item = d.line[Math.floor(current_position)];
+	if (direction == "ahead") line_item = d.line[Math.floor(current_position + 1)];
+	else if (direction == "behind") line_item = d.line[Math.floor(current_position)];
+	var val = line_item ? line_item.value || d.line[lastValidStage(d)].value : d.line[lastValidStage(d)].value;
 	return val == "" ? "" : labelFormat(val);
 }
 

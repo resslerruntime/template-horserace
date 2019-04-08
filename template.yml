@@ -469,7 +469,7 @@ data:
     dataset: horserace
     key: stages
     type: columns
-    columns: 'Data::C-L'
+    columns: 'Data::C-CW'
     datatype: number
   - name: Filter
     description: Hide/show entrants based on the values in this column.
