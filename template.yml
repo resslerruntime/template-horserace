@@ -17,12 +17,21 @@ settings:
   - property: zoom_enabled
     name: Play mode
     type: boolean
+    width: three quarters
     style: buttons
     choices:
       - - Zoomed
         - true
       - - Show all
         - false
+  - property: zoom_steps_to_show
+    name: Visible steps
+    type: number
+    description: The number of steps along the time axis to show
+    width: quarter
+    min: 1
+    max: 20
+    show_if: zoom_enabled
 
   - Scoring type
   - property: value_type
@@ -74,11 +83,6 @@ settings:
         - fixed
       - - Match data
         - flexible
-  - property: zoom_steps_to_show
-    name: Steps
-    type: number
-    min: 1
-    max: 20
   - property: margin_top
     name: Top
     type: number
