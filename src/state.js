@@ -6,7 +6,7 @@ var state = {
 	margin_bottom: 0,
 	margin_left: 5,
 
-	zoom_enabled: true,
+	zoom_enabled: false,
 	zoom_steps_to_show: 3,
 	zoom_y_axis: false,
 	zoom_y_padding: 20,
