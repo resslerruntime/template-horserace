@@ -14,6 +14,7 @@ build:
     script: npm run less
     directory: less
 settings:
+  - View
   - property: zoom_enabled
     name: Play mode
     type: boolean
