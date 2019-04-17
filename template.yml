@@ -26,9 +26,9 @@ settings:
       - - Show all
         - false
   - property: zoom_steps_to_show
-    name: Visible steps
+    name: Visible stages
     type: number
-    description: The number of steps along the time axis to show
+    description: The number of time slices (each of which is column of data) to show on the time axis to the left and right of the current time (which in zoomed mode remains in the middle). Ignored if the number specified is greater than the number of stages in the data.
     width: quarter
     min: 1
     max: 20
