@@ -9,7 +9,7 @@ import data from "./data";
 import { is_mobile, horses } from "./update_graphic";
 import { svg, plot, layout } from "./create_dom";
 
-var end_circle_r, start_circle_r, line_width, shade_width, max_horse_height;
+var end_circle_r, end_circle_stroke, start_circle_r, line_width, shade_width, max_horse_height;
 var w, h, x, y, viz_ui;
 var label_sizes = {
 	x_axis: {},
@@ -25,9 +25,10 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 
 	start_circle_r = !is_mobile ? state.start_circle_r : Math.min(state.start_circle_r, 28) / 2;
 	end_circle_r = !is_mobile ? state.end_circle_r : Math.min(state.end_circle_r, 28) / 2;
+	end_circle_stroke = !is_mobile ? state.end_circle_stroke : state.end_circle_stroke / 2;
 	shade_width = !is_mobile ? state.shade_width : Math.max(Math.round(state.shade_width/2), 1);
 	line_width = !is_mobile ? state.line_width : Math.max(Math.round(state.line_width/2), 1);
-	max_horse_height = Math.max(end_circle_r * 2, start_circle_r * 2, line_width, shade_width);
+	max_horse_height = Math.max(end_circle_r * 2 + end_circle_stroke, start_circle_r * 2, line_width, shade_width);
 
 	var margin_right;
 	if (state.zoom_enabled) {
@@ -36,12 +37,11 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 	else if (is_mobile) {
 		margin_right = end_circle_r + state.margin_right_mobile;
 	}
-	else margin_right = state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 15 : 0) + end_circle_r;
+	else margin_right = state.margin_right + label_sizes.line.width + (state.rank_outside_picture ? 15 : 0) + end_circle_r + end_circle_stroke;
 
 	var margin_bottom = max_horse_height/2 + state.margin_bottom;
 	var margin_top = max_horse_height/2 + label_sizes.x.height + state.margin_top;
 	var margin_left = Math.max(max_horse_height/2, 5) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
-
 
 	var num_of_horses = state.y_axis_max_rank != null && state.y_axis_max_rank != "" ? state.y_axis_max_rank : data.horserace.length;
 	var gap_between = max_horse_height * 0.1;
@@ -153,4 +153,4 @@ function getLabelSizes() {
 	label_sizes.x.el.remove();
 }
 
-export { updateSizesAndScales, updateXDomain, updateYDomain, w, h, x, y, start_circle_r, end_circle_r, shade_width, line_width, max_horse_height };
+export { updateSizesAndScales, updateXDomain, updateYDomain, w, h, x, y, start_circle_r, end_circle_r, end_circle_stroke, shade_width, line_width, max_horse_height };

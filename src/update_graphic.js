@@ -10,7 +10,7 @@ import update from "./update";
 
 import { getProcessedData, localization } from "./process_data";
 import { plot, g_lines, g_labels, g_start_circles, g_checks, layout } from "./create_dom";
-import { updateSizesAndScales, w, h, x, y, start_circle_r, end_circle_r, shade_width, line_width } from "./size";
+import { updateSizesAndScales, w, h, x, y, start_circle_r, end_circle_r, end_circle_stroke, shade_width, line_width } from "./size";
 import { updateAxes } from "./axis";
 import { updateColors, color } from "./colors";
 import { updateFilterControls } from "./controls";
@@ -203,7 +203,6 @@ function updateLabels(duration) {
 		.on("mouseenter", mouseover).on("mouseleave", mouseout).on("click", clickHorse)
 		.attr("transform", transformLabel);
 
-	var end_circle_stroke = !is_mobile ? state.end_circle_stroke : state.end_circle_stroke/2;
 	var end_circle = labels_enter.append("g").attr("class", "end-circle-container");
 	end_circle.append("circle").attr("class", "circle bg");
 	end_circle.append("circle").attr("class", "end circle");
@@ -251,7 +250,7 @@ function updateLabels(duration) {
 	labels_update.select(".name-bg").attr("stroke", state.layout.background_color_enabled ? state.layout.background_color : "transparent");
 
 	if (state.horse_images) {
-		var pic_w = end_circle_r * 2 - (end_circle_stroke/2);
+		var pic_w = end_circle_r * 2;
 		labels_update.select("image")
 			.attr("xlink:href", function(d) { return d.pic; })
 			.style("display", "inherit")
@@ -261,7 +260,7 @@ function updateLabels(duration) {
 			.attr("x", -pic_w/2).attr("y", -pic_w/2);
 		plot.select("#circleClip circle")
 			.transition().duration(duration)
-			.attr("r", end_circle_r - (end_circle_stroke/2));
+			.attr("r", end_circle_r);
 	}
 	else { labels_update.select("image").style("display", "none"); }
 
@@ -291,7 +290,7 @@ function updateLabels(duration) {
 
 	labels_update.selectAll(".name-fg, .name-bg").attr("font-size", label_font_size)
 		.attr("x", function() {
-			if (!is_mobile || state.zoom_enabled) return end_circle_r + 4;
+			if (!is_mobile || state.zoom_enabled) return end_circle_r + (end_circle_stroke / 2) + 4;
 			else {
 				var text_width = this.getBBox().width;
 				return -end_circle_r - 4 - text_width;

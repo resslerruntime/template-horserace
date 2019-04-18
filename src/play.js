@@ -4,7 +4,7 @@ import { ascending } from "d3-array";
 import state from "./state";
 import data from "./data";
 
-import { x, y, w, updateXDomain, updateYDomain, end_circle_r } from "./size";
+import { x, y, w, updateXDomain, updateYDomain, end_circle_r, end_circle_stroke } from "./size";
 import { updateAxes } from "./axis";
 import { getTargetPosition, updateChecks, updateLines, updateStartCircles, transformLabel, displayValue, labels_update, is_mobile } from "./update_graphic";
 
@@ -30,7 +30,7 @@ function tieBreak() {
 		var labels = labels_by_rank[rank].sort(function(a, b) { return ascending(a.__data__.index, b.__data__.index); });
 		if (labels.length > 1) {
 			for (var i = 0; i < labels.length; i++) {
-				var shift = end_circle_r * 0.5 * (i - 1/2);
+				var shift = (end_circle_r + end_circle_stroke) * 0.5 * (i - 1/2);
 				select(labels[i]).select(".end-circle-container")
 					.attr("transform", "translate(" + shift + ",0)");
 
@@ -38,10 +38,10 @@ function tieBreak() {
 
 				select(labels[i]).selectAll(".name-bg, .name-fg")
 					.attr("x", function() {
-						if (!is_mobile || state.zoom_enabled) return (labels.length) * (end_circle_r * 0.5) + (end_circle_r/2);
+						if (!is_mobile || state.zoom_enabled) return (labels.length) * ((end_circle_r + end_circle_stroke) * 0.5) + (end_circle_r/2);
 						else {
 							var text_width = this.getBBox().width;
-							return -end_circle_r*1.5 - text_width;
+							return -(end_circle_r + end_circle_stroke) - text_width;
 						}
 					});
 			}
@@ -109,7 +109,7 @@ function frame(t) {
 		})
 		.each(function() {
 			select(this.parentNode).attr("x", function() {
-				if (!is_mobile || state.zoom_enabled) return end_circle_r + 4;
+				if (!is_mobile || state.zoom_enabled) return end_circle_r + (end_circle_stroke / 2) + 4;
 				else {
 					var text_width = this.getBBox().width;
 					return -end_circle_r - 4 - text_width;
