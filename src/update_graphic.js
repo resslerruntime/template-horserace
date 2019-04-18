@@ -16,6 +16,7 @@ import { updateColors, color } from "./colors";
 import { updateFilterControls } from "./controls";
 import { play, tieBreak, current_position, updateCurrentPosition } from "./play";
 
+var horses;
 var is_mobile;
 var selected_check = null;
 var selected_horses = [];
@@ -35,7 +36,7 @@ function updateNumberFormatter() {
 	labelFormat = getLabelFormatter(localeFunction);
 }
 
-function updateLines(horses, duration) {
+function updateLines(duration) {
 	var lines = g_lines.selectAll(".line-group").data(horses, function(d) { return d.name; });
 	var lines_enter = lines.enter().append("g").attr("class", "horse line-group")
 		.on("mouseenter", mouseover)
@@ -79,7 +80,7 @@ function updateLines(horses, duration) {
 	lines.exit().remove();
 }
 
-function updateStartCircles(horses, duration) {
+function updateStartCircles(duration) {
 	var start_circles = g_start_circles.selectAll(".start-circle").data(horses, function(d) { return d.name; });
 	var start_circles_enter = start_circles.enter().append("circle").attr("class", "horse start-circle")
 		.attr("cy", function(d) { return y(d.start_circle.value); })
@@ -97,8 +98,11 @@ function updateStartCircles(horses, duration) {
 	start_circles.exit().remove();
 }
 
-function displayValue(d) {
-	var val = d.line[Math.floor(current_position)].value || d.line[lastValidStage(d)].value;
+function displayValue(d, direction) {
+	var line_item = d.line[Math.floor(current_position)];
+	if (direction == "ahead") line_item = d.line[Math.floor(current_position + 1)];
+	else if (direction == "behind") line_item = d.line[Math.floor(current_position)];
+	var val = line_item ? line_item.value || d.line[lastValidStage(d)].value : d.line[lastValidStage(d)].value;
 	return val == "" ? "" : labelFormat(val);
 }
 
@@ -135,7 +139,7 @@ function transformLabel(d) {
 }
 
 function updateChecks() {
-	var check_width = x(1);
+	var check_width = state.zoom_enabled ? x(Math.max(current_position - state.zoom_steps_to_show + 1, 1)) : x(1);
 	var check_margin = 60;
 	var check_inner_margin = check_margin - 20;
 	var checks = g_checks.selectAll(".check").data(data.horserace.column_names.stages);
@@ -164,7 +168,6 @@ function updateChecks() {
 	checks_update.attr("transform", function(d, i) {
 		return "translate(" + (x(i) - (check_width / 2)) + ", " + "-" + check_margin + ")";
 	});
-
 	checks_update.select("rect")
 		.attr("x", 0)
 		.attr("y", 0)
@@ -193,7 +196,7 @@ function updateChecks() {
 	checks.exit().remove();
 }
 
-function updateLabels(horses, duration) {
+function updateLabels(duration) {
 	var labels = g_labels.selectAll(".labels-group").data(horses, function(d) { return d.name; });
 
 	var labels_enter = labels.enter().append("g").attr("class", "horse labels-group")
@@ -286,7 +289,7 @@ function updateLabels(horses, duration) {
 
 	labels_update.selectAll(".name-fg, .name-bg").attr("font-size", label_font_size)
 		.attr("x", function() {
-			if (!is_mobile) return end_circle_r + 4;
+			if (!is_mobile || state.zoom_enabled) return end_circle_r + 4;
 			else {
 				var text_width = this.getBBox().width;
 				return -end_circle_r - 4 - text_width;
@@ -299,11 +302,11 @@ function updateLabels(horses, duration) {
 	labels.exit().remove();
 }
 
-function updateHorses(data, duration) {
+function updateHorses(duration) {
 	updateCurrentPosition();
-	updateLines(data, duration);
-	updateStartCircles(data, duration);
-	updateLabels(data, duration);
+	updateLines(duration);
+	updateStartCircles(duration);
+	updateLabels(duration);
 	updateChecks(data);
 }
 
@@ -416,19 +419,24 @@ function updateLineStyle() {
 
 function updateGraphic(duration) {
 	is_mobile = window.innerWidth <= 420;
+
 	updateNumberFormatter();
 	updateUI();
 	updateFilterControls();
 	layout.update();
-	var horses = getProcessedData();
+
+	horses = getProcessedData();
 	selected_horses = state.selected_horse ? state.selected_horse.split(",") : [];
-	updateSizesAndScales(current_position, horses.max_rank);
+
+	updateSizesAndScales(current_position, horses.max_rank, duration);
 	updateLineStyle();
 	updateColors();
-	updateAxes(x, y, w, duration);
-	updateHorses(horses, duration);
+	var axis_width = state.zoom_enabled ? Math.min(x(data.horserace.column_names.stages.length - 1), w) : w;
+	updateAxes(x, y, axis_width, duration);
+	updateHorses(duration);
+
 	if (current_position != getTargetPosition()) play();
 	else tieBreak();
 }
 
-export { updateGraphic, getTargetPosition, transformLabel, displayValue, labels_update, is_mobile };
+export { updateGraphic, updateLines, updateChecks, updateStartCircles, getTargetPosition, transformLabel, displayValue, labels_update, is_mobile, horses };

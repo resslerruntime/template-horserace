@@ -1,6 +1,6 @@
-id: horserace
-name: Horserace chart
-author: Flourish & Google News Lab teams
+id: line-chart-race
+name: Line chart race
+author: Flourish teams
 description: A “horserace” or “bump” chart to show changing rank over time
 sdk_version: 3
 categories: [ chart, ranking, change over time ]
@@ -14,6 +14,26 @@ build:
     script: npm run less
     directory: less
 settings:
+  - View
+  - property: zoom_enabled
+    name: Play mode
+    type: boolean
+    width: three quarters
+    style: buttons
+    choices:
+      - - Show all
+        - false
+      - - Zoomed
+        - true
+  - property: zoom_steps_to_show
+    name: Visible stages
+    type: number
+    description: The number of time slices (each of which is column of data) to show on the time axis to the left and right of the current time (which in zoomed mode remains in the middle). Ignored if the number specified is greater than the number of stages in the data.
+    width: quarter
+    min: 1
+    max: 20
+    show_if: zoom_enabled
+
   - Scoring type
   - property: value_type
     name: Chart mode to show on load
@@ -64,7 +84,6 @@ settings:
         - fixed
       - - Match data
         - flexible
-
   - property: margin_top
     name: Top
     type: number
@@ -344,21 +363,31 @@ settings:
     name: Stroke color
     type: color
     width: half
+  - property: zoom_y_axis
+    type: boolean
+    name: Zoom Y axis when playing
+    new_section: Zooming
+    show_if: zoom_enabled
+  - property: zoom_y_padding
+    type: number
+    name: Padding (%)
+    description: The amount of the axis to leave blank above/below the lines
+    min: 0
+    max: 100
+    show_if:
+      zoom_enabled: true
+      zoom_y_axis: true
   - property: y_axis_min
     name: Min score
     type: number
     optional: true
     width: quarter
     new_section: true
-    show_if:
-      value_type: scores
   - property: y_axis_max
     name: Max score
     type: number
     optional: true
     width: quarter
-    show_if:
-      value_type: scores
   - property: y_axis_min_rank
     name: Min rank
     type: number
@@ -445,7 +474,7 @@ data:
     dataset: horserace
     key: stages
     type: columns
-    columns: 'Data::C-L'
+    columns: 'Data::C-CW'
     datatype: number
   - name: Filter
     description: Hide/show entrants based on the values in this column.

@@ -59,7 +59,7 @@ function updateYAxis(y, w, duration) {
 		})
 		.tickPadding(5);
 
-	if (state.value_type == "ranks") yAxis.ticks(data.horserace.length);
+	if (state.value_type == "ranks") yAxis.ticks(Math.min(data.horserace.length, state.y_axis_max_rank || Infinity));
 	select(".y.axis").transition().duration(duration).call(yAxis);
 
 	selectAll(".y.axis text")

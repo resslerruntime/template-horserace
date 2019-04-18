@@ -4,8 +4,9 @@ import { ascending } from "d3-array";
 import state from "./state";
 import data from "./data";
 
-import { x, end_circle_r } from "./size";
-import { getTargetPosition, transformLabel, displayValue, labels_update, is_mobile } from "./update_graphic";
+import { x, y, w, updateXDomain, updateYDomain, end_circle_r } from "./size";
+import { updateAxes } from "./axis";
+import { getTargetPosition, updateChecks, updateLines, updateStartCircles, transformLabel, displayValue, labels_update, is_mobile } from "./update_graphic";
 
 var current_position = 0;
 
@@ -37,7 +38,7 @@ function tieBreak() {
 
 				select(labels[i]).selectAll(".name-bg, .name-fg")
 					.attr("x", function() {
-						if (!is_mobile) return (labels.length) * (end_circle_r * 0.5) + (end_circle_r/2);
+						if (!is_mobile || state.zoom_enabled) return (labels.length) * (end_circle_r * 0.5) + (end_circle_r/2);
 						else {
 							var text_width = this.getBBox().width;
 							return -end_circle_r*1.5 - text_width;
@@ -75,25 +76,40 @@ function frame(t) {
 	}
 	if (reached_target) current_position = target_position;
 
-	var x_offset = Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
+	if (state.zoom_enabled) {
+		updateXDomain(current_position);
+		updateYDomain(current_position);
+	}
+
+	var direction = reached_target ? null : (target_is_ahead ? "ahead" : "behind");
+	var x_offset = state.zoom_enabled ? 0 : Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
 	select("#clip rect")
 		.attr("width", x(current_position) + x_offset)
 		.attr("x", -x_offset);
+
 	labels_update
 		.interrupt()
 		.attr("transform", transformLabel)
 		.selectAll(".rank-number")
 		.text(function(d) {
-			return state.rank_outside_picture ? "" : displayValue(d) + " ";
+			return state.rank_outside_picture ? "" : displayValue(d, direction) + " ";
 		});
+
+	if (state.zoom_enabled) {
+		updateChecks();
+		updateLines(0);
+		updateStartCircles(0);
+		var axis_width = Math.min(x(data.horserace.column_names.stages.length - 1), w);
+		updateAxes(x, y, axis_width, 0);
+	}
 
 	labels_update.selectAll(".name-rank")
 		.text(function(d) {
-			return state.rank_outside_picture ? displayValue(d) + " " : "";
+			return state.rank_outside_picture ? displayValue(d, direction) + " " : "";
 		})
 		.each(function() {
 			select(this.parentNode).attr("x", function() {
-				if (!is_mobile) return end_circle_r + 4;
+				if (!is_mobile || state.zoom_enabled) return end_circle_r + 4;
 				else {
 					var text_width = this.getBBox().width;
 					return -end_circle_r - 4 - text_width;
