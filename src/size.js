@@ -80,10 +80,11 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 function updateXDomain(current_position) {
 	var num_stages = data.horserace.column_names.stages.length;
 	var min_domain = !state.zoom_enabled ? 0 : Math.max(0, current_position - state.zoom_steps_to_show);
+	var steps_to_show = Math.min(num_stages, state.zoom_steps_to_show);
 
 	var max_domain;
 	if (!state.zoom_enabled) max_domain = num_stages - 1;
-	else max_domain = Math.min(current_position + num_stages - 1, Math.max(current_position + state.zoom_steps_to_show, state.zoom_steps_to_show * 2));
+	else max_domain = Math.max(current_position + steps_to_show, steps_to_show * 2);
 
 	var domain = [min_domain, max_domain];
 	x.domain(domain);
