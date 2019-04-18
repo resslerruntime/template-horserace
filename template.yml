@@ -21,10 +21,10 @@ settings:
     width: three quarters
     style: buttons
     choices:
-      - - Zoomed
-        - true
       - - Show all
         - false
+      - - Zoomed
+        - true
   - property: zoom_steps_to_show
     name: Visible stages
     type: number
