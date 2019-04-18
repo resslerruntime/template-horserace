@@ -76,8 +76,10 @@ function frame(t) {
 	}
 	if (reached_target) current_position = target_position;
 
-	updateXDomain(current_position);
-	updateYDomain(current_position);
+	if (state.zoom_enabled) {
+		updateXDomain(current_position);
+		updateYDomain(current_position);
+	}
 
 	var direction = reached_target ? null : (target_is_ahead ? "ahead" : "behind");
 	var x_offset = state.zoom_enabled ? 0 : Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
