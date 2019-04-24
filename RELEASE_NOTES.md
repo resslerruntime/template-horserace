@@ -1,3 +1,9 @@
+# 6.0.0
+* Rename to "Line Chart Race"
+* Add zoomed view
+* Upgrade to Flourish Layout 1.1.0
+* Tweak circle clip path sizing
+
 # 5.1.1
 * Include max rank when using data for chart height
 
