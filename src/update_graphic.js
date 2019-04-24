@@ -250,17 +250,15 @@ function updateLabels(duration) {
 	labels_update.select(".name-bg").attr("stroke", state.layout.background_color_enabled ? state.layout.background_color : "transparent");
 
 	if (state.horse_images) {
-		var pic_w = end_circle_r * 2;
+		var pic_w = end_circle_r * 2 - end_circle_stroke;
 		labels_update.select("image")
 			.attr("xlink:href", function(d) { return d.pic; })
 			.style("display", "inherit")
 			.attr("opacity", horseOpacity)
-			.transition().duration(duration)
 			.attr("height", pic_w).attr("width", pic_w)
 			.attr("x", -pic_w/2).attr("y", -pic_w/2);
 		plot.select("#circleClip circle")
-			.transition().duration(duration)
-			.attr("r", end_circle_r);
+			.attr("r", end_circle_r - (end_circle_stroke/2));
 	}
 	else { labels_update.select("image").style("display", "none"); }
 
