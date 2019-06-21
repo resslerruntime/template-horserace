@@ -365,9 +365,9 @@ settings:
     width: half
   - property: zoom_y_axis
     type: boolean
-    name: Zoom Y axis when playing
+    name: Dynamic Y axis
+    description: Rescales the y axis when filtering or playing in zoomed mode
     new_section: Zooming
-    show_if: zoom_enabled
   - property: zoom_y_padding
     type: number
     name: Padding (%)

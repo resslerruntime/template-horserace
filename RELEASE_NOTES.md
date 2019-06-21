@@ -1,3 +1,6 @@
+# 6.1.0 (not yet released)
+* Enable dynamic y axis when filtering in non-zoomed mode
+
 # 6.0.0
 * Rename to "Line Chart Race"
 * Add zoomed view

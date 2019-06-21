@@ -103,6 +103,16 @@ function updateYDomain(current_position) {
 			var diff = y_max - y_min, padding = state.zoom_y_padding/100;
 			y_min -= diff * padding; y_max += diff * padding;
 		}
+		else if (state.zoom_y_axis) {
+			y_min = min(data.horserace, function(d) {
+				if (state.filter !== null && state.filter != state.filter_all_label && state.filter != d.filter) return null;
+				else return min(d.stages, function(v) { return parser(v); });
+			});
+			y_max = max(data.horserace, function(d) {
+				if (state.filter !== null && state.filter != state.filter_all_label && state.filter != d.filter) return null;
+				else return max(d.stages, function(v) { return parser(v); });
+			});
+		}
 		else {
 			y_min = min(data.horserace, function(d) { return min(d.stages, function(v) { return parser(v); }); });
 			y_max = max(data.horserace, function(d) { return max(d.stages, function(v) { return parser(v); }); });

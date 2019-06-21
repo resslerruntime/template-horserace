@@ -1,6 +1,6 @@
 {
   "name": "template-horserace",
-  "version": "6.0.0",
+  "version": "6.1.0-prerelease.1",
   "description": "An animated line or “bump” chart to show changing rank over time",
   "main": "template.js",
   "author": "Flourish and Google News Lab teams",
